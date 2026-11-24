@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#efe2cf">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Pizzateig-Rechner</title>
+<style>
+/* Poppins (SIL Open Font License) direkt eingebettet: keine Verbindung zu Google, funktioniert offline */
+@font-face{font-family:Poppins;font-weight:500 600;font-display:swap;src:url(data:font/woff;base64,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) format("woff")}
+@font-face{font-family:Poppins;font-weight:700 900;font-display:swap;src:url(data:font/woff;base64,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) format("woff")}
+/* VOICE: Teigliebe – freundlich, einfach erklärt, wie der YouTube-Kanal @teigliebe
+   IDEA: das Kanal-Banner – Teiglinge auf Mehl-Creme, kräftiger brauner Schriftzug
+   PICTURE: Kopfband mit gezeichneten Teiglingen; darunter die Zutatenkarte mit großen Grammzahlen
+   COLOUR and TYPE: Creme-Grund, Espressobraun für Schrift und aktive Knöpfe, Orange als Akzent; Poppins + Systemschrift
+   LAYOUT: Banner-Kopf, App-Navigation unten (Handy) bzw. oben (breit), vier Ansichten */
+:root{color-scheme:light dark;--bg:light-dark(#faf4eb,#1b1410);--ink:light-dark(#3a2417,#f5ebdf);--muted:light-dark(#7a6453,#bba895);--red:light-dark(#b85f12,#f0a050);--orange:#e08a2e;--card:light-dark(#fffcf7,#251b16);--dough:light-dark(#f2e5d2,#2f231c);--head:light-dark(#efe2cf,#2a1f18);--line:light-dark(#e8dac6,#3d2f26);--basil:light-dark(#3f7a3a,#86c477);--warn:light-dark(#fdeedd,#3a2618);--warnline:light-dark(#e9b277,#8a5a2c)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:clip;padding-bottom:84px}
+h1,h2,h3,.num{font-family:Poppins,sans-serif}
+a{color:var(--red)}
+header{background:var(--head);position:relative;overflow:hidden;padding:22px max(5vw,16px) 24px;border-bottom:4px solid var(--orange)}
+header .txt{position:relative;z-index:1;max-width:62%}
+header h1{margin:0;font-size:clamp(38px,9vw,60px);line-height:1;font-weight:800;letter-spacing:-.01em}
+header .tag{margin:6px 0 0;font:700 clamp(17px,4vw,22px)/1.2 Poppins,sans-serif;color:var(--red)}
+header .by{margin:2px 0 0;font-weight:700}
+header .by a{color:inherit;text-decoration:none}
+header svg{position:absolute;right:-30px;top:50%;transform:translateY(-50%);height:150%;max-height:240px;width:auto}
+@media(max-width:600px){header .txt{max-width:100%}header svg{right:-80px;height:100%;opacity:.85}header h1,header .tag,header .by{text-shadow:0 0 10px var(--head),0 0 4px var(--head)}header .by{font-size:15px}}
+@media(max-width:600px) and (prefers-color-scheme:dark){:root:not([data-theme=light]) header svg{opacity:.3}}
+@media(max-width:600px){:root[data-theme=dark] header svg{opacity:.3}}
+.shared{border:2px solid var(--orange)}
+.shared p{margin:2px 0}
+.linkbox{font-size:14px}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+nav a{display:grid;place-items:center;min-height:52px;border-radius:12px;text-decoration:none;color:var(--muted);font-weight:600;font-size:15px}
+nav a svg{width:22px;height:22px;margin-bottom:2px}
+nav a[aria-current=page]{color:var(--red);background:var(--dough)}
+@media(min-width:900px){body{padding-bottom:0}nav{position:sticky;top:0;bottom:auto;border-top:0;border-bottom:1px solid var(--line);grid-template-columns:repeat(4,max-content);gap:6px;padding:6px max(4vw,14px)}nav a{grid-auto-flow:column;gap:8px;padding:0 18px}nav a svg{margin:0}}
+.wrap{max-width:1240px;margin:0 auto;padding:18px max(4vw,14px) 40px;display:grid;gap:18px}
+@media(min-width:900px){.calc{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:start}.side{position:sticky;top:76px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.side{display:grid;gap:18px}
+.result{background:var(--dough);border:0}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.total h2{margin:0;font-size:26px;line-height:1.1}
+.total span{color:var(--muted)}
+.group{margin:14px 0 2px;font:700 18px Poppins,sans-serif;color:var(--red)}
+.group small{font:500 14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--muted);margin-left:6px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.row:last-child{border-bottom:0}
+.row b{font-weight:600;font-size:18px}.row small{display:block;color:var(--muted);font-size:14px}
+.num{font-size:clamp(26px,6.5vw,36px);font-weight:700;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
+.num i{font-style:normal;font-size:.5em;margin-left:3px;color:var(--muted)}
+.row.yeast .num{color:var(--red)}
+.tip{margin-top:10px;padding:12px 14px;border-radius:12px;background:var(--card);font-size:15px}
+.tip strong{color:var(--basil)}
+.hint{font-size:15px;color:var(--muted);margin:10px 0 0}
+.warns{display:grid;gap:8px;margin-top:12px}
+.warn{background:var(--warn);border:1px solid var(--warnline);border-radius:12px;padding:10px 12px;font-size:15px}
+h2.sec{margin:0 0 12px;font-size:26px;line-height:1.1}
+h3{margin:0 0 8px;font-size:21px}
+.plan{list-style:none;margin:0;padding:0}
+.plan li{display:grid;grid-template-columns:5.6em minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.plan li:last-child{border-bottom:0}
+.plan time{font:700 24px/1 Poppins,sans-serif;white-space:nowrap}
+.plan time small{display:block;font:500 13px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--muted);margin-top:3px}
+.plan li.bake time{color:var(--red)}
+.field{padding:14px 0;border-bottom:1px solid var(--line);display:grid;gap:8px}
+.field:last-child{border-bottom:0}
+.sub{padding:4px 0 4px 14px;border-left:3px solid var(--dough);display:grid;gap:8px}
+.lab{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.lab>label,.lab>span{font-weight:600}
+.lab output{font:700 24px Poppins,sans-serif;white-space:nowrap}
+.small{font-size:14px;color:var(--muted);margin:0}
+.scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 16px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:999px;min-height:44px;padding:0 16px;cursor:pointer;flex:none}
+button:focus-visible,input:focus-visible,textarea:focus-visible,nav a:focus-visible{outline:3px solid var(--basil);outline-offset:2px}
+.chip[aria-pressed=true],.seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+button:disabled{opacity:.42;cursor:not-allowed}
+.preset.blocked{opacity:.5}
+.flour{border:2px solid var(--orange)}
+.flour.set{border:1px solid var(--line)}
+.inline{display:flex;align-items:center;gap:10px}
+.inline input{max-width:140px}
+.badge{display:inline-block;background:var(--orange);color:#2a1a10;font:700 13px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;border-radius:999px;padding:2px 10px;margin-left:8px;vertical-align:middle}
+.empty{padding:6px 0;font-size:17px}
+footer{text-align:center;padding:10px 16px 30px;color:var(--muted);font-size:14px}
+.preset{display:grid;text-align:left;border-radius:14px;padding:8px 14px;line-height:1.2}
+.preset small{font-weight:500;font-size:13px;opacity:.85}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--line);border-radius:22px;overflow:hidden;justify-self:start}
+.seg button{border:0;border-radius:0;min-height:42px}
+.step{display:flex;align-items:center;gap:10px}
+.step button{width:48px;padding:0;font-size:24px}
+.step output{font:700 32px Poppins,sans-serif;min-width:2.2em;text-align:center}
+input[type=range]{width:100%;height:40px;accent-color:var(--red);margin:0}
+input[type=number],input[type=text],input[type=datetime-local],textarea{font:16px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;min-height:44px;padding:8px 10px;width:100%}
+input[type=number]{max-width:160px}input[type=datetime-local]{max-width:280px}
+textarea{min-height:70px;resize:vertical}
+.check{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;font-weight:600}
+.check input{width:22px;height:22px;accent-color:var(--red);flex:none}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.primary{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.note{font-size:13px;color:var(--muted);margin:14px 0 0}
+.clock{font:700 clamp(64px,20vw,120px)/1 Poppins,sans-serif;text-align:center;font-variant-numeric:tabular-nums;margin:10px 0}
+.clock.done{color:var(--red)}
+.grid2{display:grid;gap:18px}
+@media(min-width:900px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.recipe{border-top:1px solid var(--line);padding:14px 0;display:grid;gap:8px}
+.recipe:first-child{border-top:0}
+.recipe .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.stars{display:flex;gap:2px}
+.stars button{border:0;background:none;min-height:40px;padding:0 4px;font-size:26px;color:var(--line);line-height:1}
+.stars button.on{color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted)}
+td.r,th.r{text-align:right;white-space:nowrap}
+.ok{color:var(--basil);font-weight:600}.off{color:var(--red);font-weight:600}
+.prose p{max-width:70ch}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:6.5em;margin-inline-start:-7em;color:var(--muted)}.stack td.r{text-align:start}}
+@media(prefers-reduced-motion:no-preference){.clock.done{animation:pulse 1s ease-in-out infinite}@keyframes pulse{50%{opacity:.4}}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header>
+  <svg viewBox="0 0 300 240" aria-hidden="true">
+    <defs>
+      <radialGradient id="ball" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#fffaf0"/><stop offset=".55" stop-color="#f3e6d1"/><stop offset="1" stop-color="#d9c2a0"/></radialGradient>
+      <radialGradient id="shadow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#5a3a20" stop-opacity=".35"/><stop offset="1" stop-color="#5a3a20" stop-opacity="0"/></radialGradient>
+      <g id="b"><ellipse cx="0" cy="44" rx="58" ry="14" fill="url(#shadow)"/><circle r="52" fill="url(#ball)"/><path d="M-30-28a40 40 0 0 1 34-14" stroke="#fff" stroke-opacity=".7" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+    </defs>
+    <g fill="#fff" fill-opacity=".55"><circle cx="40" cy="60" r="2"/><circle cx="62" cy="200" r="1.6"/><circle cx="150" cy="20" r="1.8"/><circle cx="20" cy="140" r="1.4"/><circle cx="270" cy="30" r="2"/></g>
+    <use href="#b" transform="translate(205 60) scale(.9)"/>
+    <use href="#b" transform="translate(110 115)"/>
+    <use href="#b" transform="translate(230 175) scale(1.05)"/>
+  </svg>
+  <div class="txt">
+    <h1>Teigliebe</h1>
+    <p class="tag">Pizzateig-Rechner</p>
+    <p class="by"><a href="https://www.youtube.com/@teigliebe" target="_blank" rel="noopener">Brot &amp; Pizza einfach erklärt · @teigliebe</a></p>
+  </div>
+</header>
+
+<nav aria-label="Bereiche">
+  <a href="#rechner" data-view="rechner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg>Rechner</a>
+  <a href="#timer" data-view="timer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Timer</a>
+  <a href="#rezepte" data-view="rezepte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Rezepte</a>
+  <a href="#quellen" data-view="quellen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Quellen</a>
+</nav>
+
+<!-- RECHNER -->
+<div class="wrap calc view" id="v-rechner">
+  <div class="side">
+    <section class="card shared" id="sharedCard" hidden aria-live="polite">
+      <h2 class="sec" id="sharedTitle"></h2>
+      <p class="small" id="sharedBy"></p>
+      <p id="sharedNote" style="font-style:italic"></p>
+      <div id="sharedBody" class="small" style="margin-top:8px"></div>
+      <div class="actions"><button class="primary" id="sharedLoad">In den Rechner laden</button><button id="sharedSave">In meine Rezepte</button><button id="sharedClose">Schließen</button></div>
+    </section>
+
+    <section class="card flour" id="flourCard">
+      <h2 class="sec">Dein Mehl<span class="badge" id="expertBadge" hidden>Grenzen aus</span></h2>
+      <div class="field" style="padding-top:0">
+        <div class="lab"><span>Sorte und Type (steht auf der Packung)</span></div>
+        <div class="chips" id="ftChips"></div>
+        <p class="small">Italienisches Tipo 00 entspricht Type 405, Tipo 0 entspricht Type 550.</p>
+      </div>
+      <div class="field">
+        <div class="lab"><label for="protein">Eiweiß pro 100 g (Nährwerttabelle)</label></div>
+        <div class="inline"><input type="text" id="protein" inputmode="decimal" placeholder="z. B. 11,5" autocomplete="off"><span>g</span></div>
+        <p id="flourSum" style="margin:0"></p>
+      </div>
+      <div class="field">
+        <label class="check"><input type="checkbox" id="expert"> Ich weiß, was ich tue</label>
+        <p class="small">Hebt die Grenzen für dein Mehl auf. Statt gesperrter Optionen siehst du dann nur noch Warnungen.</p>
+      </div>
+    </section>
+
+    <section class="card result" aria-live="polite">
+      <div class="empty" id="emptyMsg" hidden><b>Gib zuerst dein Mehl an.</b><br>Wähle oben die Type und trag den Eiweißgehalt ein. Dann zeigt der Rechner nur das an, was mit diesem Mehl sinnvoll ist.</div>
+      <div id="resultBody">
+      <div class="total"><h2 id="totalTitle"></h2><span id="totalSub"></span></div>
+      <div id="rows"></div>
+      <div id="yeastTip"></div>
+      <p class="hint" id="flourHint"></p>
+      <div class="warns" id="warns"></div>
+      <div class="actions"><button class="primary" id="shareOpen">Rezept teilen</button><button id="copy">Rezept kopieren</button><button id="toSave">Rezept speichern</button></div>
+      <div id="shareForm" hidden style="margin-top:14px">
+        <h3 id="shareTitle">Rezept teilen</h3>
+        <div class="field" style="padding-top:0">
+          <div class="lab"><label for="shName">Name des Rezepts</label></div>
+          <input type="text" id="shName" maxlength="60" autocomplete="off">
+          <div class="lab"><label for="shBy">Von (dein Name oder YouTube-Name, optional)</label></div>
+          <input type="text" id="shBy" maxlength="40" autocomplete="off">
+          <div class="lab"><label for="shNote">Kurze Notiz (optional)</label></div>
+          <textarea id="shNote" maxlength="280" placeholder="z. B. Rand super luftig, Unterseite nach 70 s perfekt"></textarea>
+        </div>
+        <div class="actions" style="margin-top:4px"><button class="primary" id="shareGo">Teilen</button><button id="shareCopy">Link kopieren</button><button id="shareClose">Schließen</button></div>
+        <p class="small linkbox" id="shareInfo" style="margin-top:10px"></p>
+      </div>
+      </div>
+    </section>
+
+    <section class="card" id="planCard">
+      <h2 class="sec">Zeitplan</h2>
+      <div class="field" style="padding-top:0">
+        <div class="lab"><label for="bake">Wann willst du backen?</label></div>
+        <input type="datetime-local" id="bake">
+      </div>
+      <div class="field">
+        <div class="lab"><label for="knead">Zeit zum Ansetzen und Kneten</label><output id="kneadOut"></output></div>
+        <input type="range" id="knead" min="5" max="60" step="5">
+        <div class="lab"><label for="form">Zeit zum Formen der Teiglinge</label><output id="formOut"></output></div>
+        <input type="range" id="form" min="5" max="40" step="5">
+        <p class="small">Die Gare beginnt erst, wenn du fertig geknetet bzw. geformt hast. Diese Zeit plant der Zeitplan zusätzlich ein.</p>
+      </div>
+      <div class="field">
+        <div class="lab"><span>Ofen</span><span class="small">1 h vorheizen</span></div>
+        <div class="seg" data-key="oven"><button data-v="elektro">Elektro-Pizzaofen</button><button data-v="gas">Gas-Pizzaofen</button><button data-v="haus">Haushaltsofen</button></div>
+        <div class="lab"><label for="ovenModel">Modell (optional)</label></div>
+        <input type="text" id="ovenModel" maxlength="40" placeholder="z. B. Effeuno P134HA" autocomplete="off">
+        <div class="sub" id="effBox">
+          <div class="lab"><label for="topT">Oberhitze</label><output id="topTOut"></output></div>
+          <input type="range" id="topT" min="200" max="500" step="10">
+          <div class="lab"><label for="botT">Unterhitze</label><output id="botTOut"></output></div>
+          <input type="range" id="botT" min="200" max="500" step="10">
+        </div>
+        <div class="sub" id="gasBox">
+          <div class="lab"><label for="stoneT">Steintemperatur beim Einschießen</label><output id="stoneTOut"></output></div>
+          <input type="range" id="stoneT" min="300" max="550" step="10">
+          <div class="lab"><span>Flamme beim Backen</span></div>
+          <div class="seg" data-key="flame"><button data-v="voll">Voll</button><button data-v="mittel">Mittel</button><button data-v="klein">Klein</button></div>
+          <p class="small">Die Steintemperatur misst du am besten mit einem Infrarot-Thermometer.</p>
+        </div>
+        <div class="sub" id="hausBox">
+          <div class="lab"><label for="houseT">Ober-/Unterhitze</label><output id="houseTOut"></output></div>
+          <input type="range" id="houseT" min="180" max="300" step="10">
+          <div class="lab"><span>Unterlage</span></div>
+          <div class="seg" data-key="base"><button data-v="stein">Pizzastein</button><button data-v="stahl">Pizzastahl</button><button data-v="blech">Blech</button></div>
+        </div>
+      </div>
+      <ol class="plan" id="plan"></ol>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2 class="sec">Einstellungen</h2>
+
+    <div class="field" style="padding-top:0">
+      <div class="lab"><span>Vorlagen</span></div>
+      <div class="scroll" id="presets"></div>
+    </div>
+
+    <div class="field">
+      <div class="lab"><span>Rechnen nach</span></div>
+      <div class="seg" data-key="mode"><button data-v="pizzen">Anzahl Pizzen</button><button data-v="mehl">Vorhandenem Mehl</button></div>
+      <div class="step" id="nBox">
+        <button data-step="n" data-d="-1" aria-label="Eine Pizza weniger">−</button>
+        <output id="nOut"></output>
+        <button data-step="n" data-d="1" aria-label="Eine Pizza mehr">+</button>
+      </div>
+      <div id="flourBox" class="lab" style="justify-content:flex-start;gap:12px;align-items:center">
+        <input type="number" id="flourIn" min="100" max="20000" step="50" inputmode="numeric" aria-label="Mehlmenge in Gramm"><span>g Mehl</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="lab"><span>Gewicht pro Teigling</span><output id="wOut"></output></div>
+      <div class="chips" id="wChips"></div>
+      <input type="range" id="w" min="150" max="400" step="5" aria-label="Gewicht pro Teigling in Gramm">
+    </div>
+
+    <div class="field">
+      <div class="lab"><label for="h">Hydration</label><output id="hOut"></output></div>
+      <input type="range" id="h" min="55" max="80" step="1">
+    </div>
+
+    <div class="field">
+      <div class="lab"><label for="s">Salz (vom Mehl)</label><output id="sOut"></output></div>
+      <input type="range" id="s" min="2" max="3.5" step="0.1">
+    </div>
+
+    <div class="field">
+      <div class="lab"><span>Teigführung</span></div>
+      <div class="seg" data-key="meth"><button data-v="direkt">Direkt</button><button data-v="poolish">Poolish</button><button data-v="biga">Biga</button><button data-v="sauer">Sauerteig</button></div>
+      <p class="small" id="methInfo"></p>
+      <div class="sub" id="poolBox">
+        <div class="lab"><label for="pAnteil">Poolish-Anteil am Mehl</label><output id="pAnteilOut"></output></div>
+        <input type="range" id="pAnteil" min="10" max="60" step="5">
+        <div class="lab"><label for="pH">Poolish reifen lassen (Raumtemperatur)</label><output id="pHOut"></output></div>
+        <input type="range" id="pH" min="6" max="24" step="1">
+      </div>
+      <div class="sub" id="bigaBox">
+        <div class="lab"><label for="bAnteil">Biga-Anteil am Mehl</label><output id="bAnteilOut"></output></div>
+        <input type="range" id="bAnteil" min="20" max="100" step="5">
+        <p class="small" id="bigaInfo"></p>
+      </div>
+      <p class="small" id="sauerInfo"></p>
+    </div>
+
+    <div class="field" id="ytField">
+      <div class="lab"><span>Hefe</span></div>
+      <div class="seg" data-key="yt"><button data-v="frisch">Frischhefe</button><button data-v="trocken">Trockenhefe</button></div>
+    </div>
+
+    <div class="field">
+      <div class="lab"><label for="rt">Raumtemperatur</label><output id="rtOut"></output></div>
+      <input type="range" id="rt" min="16" max="28" step="1">
+    </div>
+
+    <div class="field">
+      <div class="lab"><label for="sh">Stockgare</label><output id="shOut"></output></div>
+      <div class="seg" data-key="sl"><button data-v="raum">Raumtemperatur</button><button data-v="kuehl">Kühlschrank</button></div>
+      <input type="range" id="sh" min="0" max="96" step="1">
+    </div>
+
+    <div class="field">
+      <div class="lab"><label for="kh">Stückgare (nach dem Formen)</label><output id="khOut"></output></div>
+      <div class="seg" data-key="kl"><button data-v="raum">Raumtemperatur</button><button data-v="kuehl">Kühlschrank</button></div>
+      <input type="range" id="kh" min="1" max="72" step="1">
+      <p class="small" id="khInfo"></p>
+    </div>
+
+    <div class="field">
+      <label class="check"><input type="checkbox" id="oilOn"> Olivenöl</label>
+      <div class="sub" id="oilBox"><div class="lab"><label for="oil">Öl (vom Mehl)</label><output id="oilOut"></output></div><input type="range" id="oil" min="0.5" max="5" step="0.5"></div>
+      <label class="check"><input type="checkbox" id="sugarOn"> Zucker</label>
+      <div class="sub" id="sugarBox"><div class="lab"><label for="sugar">Zucker (vom Mehl)</label><output id="sugarOut"></output></div><input type="range" id="sugar" min="0.5" max="3" step="0.5"></div>
+      <p class="small">Öl und Zucker helfen im Haushaltsbackofen (250 °C) beim Bräunen. Im Pizzaofen mit 400 °C und mehr meist weglassen.</p>
+    </div>
+
+    <div class="field">
+      <div class="lab"><span>Wassertemperatur</span><output id="wtOut"></output></div>
+      <div class="lab"><label for="td">Ziel-Teigtemperatur nach dem Kneten</label><output id="tdOut"></output></div>
+      <input type="range" id="td" min="20" max="27" step="1">
+      <div class="lab"><label for="ft">Mehltemperatur</label><output id="ftOut"></output></div>
+      <input type="range" id="ft" min="10" max="30" step="1">
+      <div class="lab"><label for="fric">Erwärmung beim Kneten</label><output id="fricOut"></output></div>
+      <input type="range" id="fric" min="0" max="10" step="1">
+      <p class="small">Von Hand etwa 2–4 °C, Küchenmaschine etwa 5–8 °C. Das sind Schätzwerte: Miss einmal die Teigtemperatur mit einem Thermometer und stell den Wert danach ein.</p>
+    </div>
+
+    <div class="field">
+      <label class="check"><input type="checkbox" id="loss"> Teigrest einplanen (+2 %, bleibt in Schüssel und an den Händen)</label>
+    </div>
+
+    <p class="note">Alle Mengen sind Richtwerte. Wie sie entstehen und wie gut sie zu veröffentlichten Rezepten passen, steht unter <a href="#quellen">Quellen</a>.</p>
+  </section>
+</div>
+
+<!-- TIMER -->
+<div class="wrap grid2 view" id="v-timer" hidden>
+  <section class="card">
+    <h2 class="sec">Back-Timer</h2>
+    <div class="chips" id="backChips"></div>
+    <div class="clock" id="backClock">1:30</div>
+    <div class="actions" style="justify-content:center"><button class="primary" id="backStart">Start</button><button id="backReset">Zurücksetzen</button></div>
+    <p class="small" id="backHint" style="text-align:center;margin-top:10px"></p>
+  </section>
+  <section class="card">
+    <h2 class="sec">Gare-Timer</h2>
+    <p class="small">Startet mit den Zeiten aus deinem aktuellen Rezept. Der Timer merkt sich die Endzeit, auch wenn du die App schließt.</p>
+    <div class="chips" id="gareChips" style="margin-top:10px"></div>
+    <div id="gareBox"></div>
+  </section>
+  <p class="note" style="grid-column:1/-1">Ein Signalton kommt nur, solange die App offen ist. Bei langen Garzeiten zusätzlich den Handywecker auf die angezeigte Endzeit stellen.</p>
+</div>
+
+<!-- REZEPTE -->
+<div class="wrap grid2 view" id="v-rezepte" hidden>
+  <section class="card">
+    <h2 class="sec">Aktuelles Rezept speichern</h2>
+    <div class="field" style="padding-top:0">
+      <div class="lab"><label for="rName">Name</label></div>
+      <input type="text" id="rName" maxlength="60">
+      <div class="lab"><label for="rNotes">Notizen (wie ist die Pizza geworden?)</label></div>
+      <textarea id="rNotes" placeholder="z. B. Rand schön luftig, nächstes Mal 1 h weniger Stückgare"></textarea>
+      <div class="lab"><span>Bewertung</span></div>
+      <div class="stars" id="rStars"></div>
+    </div>
+    <div class="actions"><button class="primary" id="rSave">Speichern</button></div>
+    <p class="small" id="rMsg" style="margin-top:10px"></p>
+  </section>
+  <section class="card">
+    <h2 class="sec">Gespeicherte Rezepte</h2>
+    <div id="rList"></div>
+    <div class="actions"><button id="rCopyAll">Alle als Text kopieren</button></div>
+    <p class="note">Rezepte werden nur auf diesem Gerät in diesem Browser gespeichert.</p>
+  </section>
+</div>
+
+<!-- QUELLEN -->
+<div class="wrap view prose" id="v-quellen" hidden>
+  <section class="card">
+    <h2 class="sec">Woher kommen die Hefemengen?</h2>
+    <p>Die App rechnet die Gare in <b>„Stunden bei 22 °C“</b> um und liest daraus die Hefemenge ab. Die Formel dafür ist an veröffentlichten Rezepten und Hefetabellen ausgerichtet:</p>
+    <p><b>Frischhefe in % vom Mehl ≈ 17 × t<sup>−1,65</sup></b>, wobei t die umgerechnete Gärzeit ist.</p>
+    <p><b>Wärme:</b> Alle 8 °C wärmer arbeitet die Hefe etwa doppelt so schnell. <b>Kühlschrank:</b> Eine Stunde zählt wie etwa 0,35 Stunden bei 22 °C. Das ist mehr, als die Kälte allein vermuten lässt, weil ein Teig im Haushaltskühlschrank Stunden zum Abkühlen braucht und diese Kühlschränke meist 5–8 °C haben.</p>
+    <p><b>Trockenhefe</b> = ein Drittel der Frischhefe. <b>Teiglinge im Kühlschrank:</b> Die letzten 2 Stunden vor dem Backen zählen als Raumtemperatur, weil sie dann zum Akklimatisieren draußen liegen.</p>
+  </section>
+
+  <section class="card">
+    <h2 class="sec">Vergleich mit veröffentlichten Werten</h2>
+    <p class="small">Werte der Quellen umgerechnet auf Frischhefe in % vom Mehl. Die Spalte „App“ rechnet live mit derselben Formel wie der Rechner (Raumtemperatur 21 °C, wenn die Quelle keine nennt).</p>
+    <div class="scroll" style="display:block"><table class="stack" id="refTable"></table></div>
+    <p class="hint" id="refSummary"></p>
+  </section>
+
+  <section class="card">
+    <h2 class="sec">Welches Mehl für welche Gare?</h2>
+    <p><b>Die Type sagt nichts über die Stärke.</b> Die deutsche Type-Zahl gibt den Mineralstoffgehalt an (Type 405 = 405 mg Mineralstoffe pro 100 g). Ob ein Teig lange Gare aushält, hängt vom Gluten ab, und dafür ist der <b>Eiweißgehalt</b> auf der Packung der beste Anhaltspunkt. Deshalb fragt die App beides ab.</p>
+    <p><b>Grundlage:</b> Die AVPN empfiehlt für 24 h Gare ein deutlich stärkeres Mehl als für 8 h. Die Mehlstärke (in Italien als W-Wert angegeben) lässt sich grob über das Eiweiß abschätzen: mittlere Pizzamehle haben etwa 10–12,5 %, starke Mehle über 13 %. Die AVPN-Werte gelten für Pizzerien, deshalb sind die Grenzen der App für zu Hause etwas großzügiger.</p>
+    <div class="scroll" style="display:block"><table class="stack" id="flourTable"></table></div>
+    <p class="small" style="margin-top:8px">Die Gare-Grenze gilt für die umgerechnete Gärzeit: Eine wärmere Küche verkürzt die erlaubte Zeit. <b>Type 812 / 1050 / Vollkorn:</b> nehmen mehr Wasser auf (+2 / +4 / +6 % Hydration), die Kleie schwächt aber das Gluten (−10 / −20 / −30 % Gare). <b>Dinkel 630:</b> empfindlicheres Gluten (−3 % Hydration, −25 % Gare). Biga nur mit Weizenmehl Type 405–1050.</p>
+  </section>
+
+  <section class="card">
+    <h2 class="sec">Weitere Faustregeln</h2>
+    <p><b>Profi-Teige sind nicht vergleichbar:</b> Die AVPN schreibt selbst, dass bei größeren Teigmengen anteilig weniger Hefe nötig ist. In großen Kesseln in der Pizzeria bleibt der Teig länger warm. Deshalb liegt die App bei den AVPN-Werten bewusst höher.</p>
+    <p><b>Poolish:</b> 100 % Hydration. Die Hefe im Hauptteig wird um den Poolish-Anteil reduziert, also etwa um ein Drittel bei 30 %. Weekend Bakery empfiehlt ein Drittel bis die Hälfte.</p>
+    <p><b>Biga:</b> 44 % Wasser und 1 % Frischhefe auf das Biga-Mehl, 16–18 Stunden bei 16–18 °C, mit kräftigem Weizenmehl (in der App ab 12,5 g Eiweiß). Bei 50 % Biga oder mehr kommt keine weitere Hefe in den Hauptteig.</p>
+    <p><b>Sauerteig:</b> Üblich sind 10–30 % aktives Anstellgut, für Einsteiger 15–20 % mit 24 Stunden kalter Gare. Die App skaliert ab 18 % bei rund 12 umgerechneten Stunden. Das ist die ungenaueste Rechnung, weil jedes Anstellgut anders stark ist.</p>
+    <p><b>Wassertemperatur</b> nach der Bäcker-Formel: (Ziel-Teigtemperatur − Knet-Erwärmung) × 2 − Mehltemperatur. Mit Vorteig wird × 3 gerechnet und zusätzlich die Vorteig-Temperatur abgezogen.</p>
+    <h3 style="margin-top:16px">Quellen</h3>
+    <ul id="srcList"></ul>
+    <p class="note">Hefe, Mehl, Kühlschrank und Küche sind bei jedem anders. Die Zahlen sind ein guter Startpunkt. Wirklich passend werden sie, wenn du nach dem Backen notierst, wie es lief, und beim nächsten Mal nachjustierst.</p>
+  </section>
+</div>
+
+<footer>Teigliebe · Brot &amp; Pizza einfach erklärt · <a href="https://www.youtube.com/@teigliebe" target="_blank" rel="noopener">youtube.com/@teigliebe</a><br><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></footer>
+
+<script>
+{
+/* ---------- Modell ---------- */
+const A=17,N=1.65,DOUBLE=8,FRIDGE=0.35,CAP=5;
+const rate=T=>2**((T-22)/DOUBLE);
+const yeastFor=teq=>Math.min(CAP,A*Math.pow(Math.max(teq,0.5),-N));
+
+const SRC={
+  avpn:['AVPN, Disciplinare 2022','https://www.pizzanapoletana.org/public/pdf/Disciplinare_AVPN_2022.pdf'],
+  garage:['garage.pizza, Antonio Fucito: Yeast for Pizza','https://garage.pizza/?p=117008'],
+  khymos:['Khymos (Martin Lersch): How much yeast?','https://khymos.org/?p=4440'],
+  mv:['MissVickie: Fresh Yeast for Pizza Calculator','https://missvickie.com/fresh-yeast-pizza-flour-calculator/'],
+  neff:['NEFF: Rezept Neapolitanische Pizza (PDF)','https://media3.neff-international.com/Documents/18067395_NEFF_Rezepte_Neapolitanische_Pizza.pdf'],
+  grill:['Grillfürst: Pizzateig klebt','https://www.grillfuerst.de/magazin/bbq-guides/pizzateig-klebt/'],
+  henssler:['heidelberg24: Steffen Hensslers Pizzateig','https://www.heidelberg24.de/ratgeber/steffen-hensslers-pizzateig-rezept-mit-diesem-simplen-trick-gelingt-der-boden-wie-in-italien-zr-94440596.html'],
+  hd:['heidelberg24: Italienischer Pizzateig','https://www.heidelberg24.de/ratgeber/rezept-fuer-echt-italienischen-pizzateig-sieben-geheimnisse-die-sie-kennen-sollten-zr-94122508.html'],
+  kg:['Küchengötter: 24-Stunden-Pizzateig (PDF)','https://www.kuechengoetter.de/rezepte/download/24-Stunden-Pizzateig-91951.pdf'],
+  fl:['The Fresh Loaf: Gärung verdoppelt sich etwa alle 8–10 °C','https://www.thefreshloaf.com/comment/553914'],
+  pmq:['PMQ Pizza Magazine: Umrechnung Frisch- zu Trockenhefe','https://issuu.com/pmqpizzamagazine/docs/dec2022-book/s/17677434'],
+  wb:['Weekend Bakery: Poolish und Hefemenge','https://www.weekendbakery.com/posts/a-pizza-adventure-part-ii-new-24h-dough-recipe/'],
+  biga:['Erre4M: Biga und Poolish','https://www.erre4m-shop.com/en/blog/two-is-better-than-one/'],
+  biga2:['Scatti di Gusto: Biga und Mehlstärke','https://www.scattidigusto.it/2017/01/27/lezioni-di-pizza-biga-vincente/'],
+  sd:['Pizza-Guide: Sauerteig-Pizza, Levain-Anteil','https://pizza-recipe-theta.vercel.app/guides/sourdough'],
+  wasser:['Hessischer Bildungsserver: Zugusstemperatur berechnen (PDF)','https://djaco.bildung.hessen.de/materialien/beruf/gastgewerbe/fachstufe/weizenkleingeback/weizenkleingebacke-hilfekarten.pdf'],
+  type:['Öko-Test: Was die Mehl-Type bedeutet','https://www.oekotest.de/essen-trinken/Mehl-Typen-Was-bedeuten-die-Zahlen-auf-dem-Mehl_11593_1.html'],
+  wiki:['Wikipedia: Wheat flour – Mehlstärke (W) und Eiweißgehalt','https://en.wikipedia.org/wiki/Wheat_flour']
+};
+/* ---------- Mehl ---------- */
+const FLOURS=[['405','Weizen 405'],['550','Weizen 550'],['812','Weizen 812'],['1050','Weizen 1050'],['vk','Weizenvollkorn'],['d630','Dinkel 630']];
+const FADJ={'405':[0,1],'550':[0,1],'812':[2,.9],'1050':[4,.8],'vk':[6,.7],'d630':[-3,.75]};
+const BANDS=[[0,10.5,12,62,false,false,'unter 10,5 g'],[10.5,12,24,68,true,false,'10,5–11,9 g'],[12,12.5,32,72,true,false,'12–12,4 g'],[12.5,13,32,72,true,true,'12,5–12,9 g'],[13,99,45,78,true,true,'ab 13 g']];
+const flourOk=s=>!!s.flourType&&s.protein>=5&&s.protein<=20;
+function limitsFor(type,p){
+  const b=BANDS.find(x=>p>=x[0]&&p<x[1]),a=FADJ[type];
+  return {teq:b[2]*a[1],h:Math.min(80,b[3]+a[0]),pool:b[4],biga:b[5]&&type!=='vk'&&type!=='d630'};
+}
+const limits=s=>flourOk(s)?limitsFor(s.flourType,s.protein):null;
+const REFS=[
+  ['avpn','8 h bei 23 °C (Profi-Großteig)','1,5 g auf 1 l Wasser ≈ 0,08 %',0.083,8,23,0,true],
+  ['avpn','24 h bei 23 °C (Profi-Großteig)','0,3 g auf 1 l Wasser ≈ 0,02 %',0.017,24,23,0,true],
+  ['garage','8–24 h Raumtemperatur','0,1 %',0.1,16,21,0],
+  ['khymos','20 h bei 20 °C','0,48 g Trockenhefe/kg ≈ 0,14 %',0.144,20,20,0],
+  ['mv','3–5 h bei 23–27 °C','1,2–2,4 %',1.7,4,25.5,0],
+  ['mv','6–12 h bei 20–22 °C','0,45–1,1 %',0.75,9,21,0],
+  ['mv','18–30 h kalt','0,15–0,45 %',0.3,2,21,24],
+  ['mv','48–72 h kalt','0,04–0,18 %',0.1,2,21,60],
+  ['garage','24–48 h Kühlschrank','0,3 %',0.3,2,21,34],
+  ['neff','18–48 h Kühlschrank','1 g auf 550 g ≈ 0,18 %',0.18,2,21,31],
+  ['grill','1 h + 20 h Kühlschrank','0,5 g auf 170 g ≈ 0,29 %',0.29,1,21,20],
+  ['grill','1 h + 40 h Kühlschrank','0,3 g auf 170 g ≈ 0,18 %',0.18,1,21,40],
+  ['henssler','24–48 h kühl','1–2 g auf 575 g ≈ 0,17–0,35 %',0.26,2,21,36],
+  ['hd','24–72 h Kühlschrank + 2 h','3 g auf 1 kg = 0,3 %',0.3,2,21,48],
+  ['kg','30 min + 24 h Kühlschrank','5 g auf 500 g = 1 %',1.0,2.5,21,24]
+];
+
+/* ---------- Zustand ---------- */
+const PRESETS=[
+  {id:'nea24',name:'Neapolitanisch',sub:'24 h, Raumtemperatur',v:{meth:'direkt',h:65,s:2.8,sh:18,sl:'raum',kh:6,kl:'raum',oilOn:false,sugarOn:false}},
+  {id:'k48',name:'Kühlschrank 48 h',sub:'kalte Stockgare',v:{meth:'direkt',h:66,s:2.8,sh:44,sl:'kuehl',kh:4,kl:'raum',oilOn:false,sugarOn:false}},
+  {id:'k72',name:'Kühlschrank 72 h',sub:'viel Aroma',v:{meth:'direkt',h:68,s:3,sh:68,sl:'kuehl',kh:4,kl:'raum',oilOn:false,sugarOn:false}},
+  {id:'day8',name:'Same Day',sub:'8 h, morgens ansetzen',v:{meth:'direkt',h:63,s:2.8,sh:6,sl:'raum',kh:2,kl:'raum',oilOn:false,sugarOn:false}},
+  {id:'fast',name:'Schnell',sub:'3 h, Notlösung',v:{meth:'direkt',h:62,s:2.8,sh:1,sl:'raum',kh:2,kl:'raum',oilOn:false,sugarOn:false}},
+  {id:'pool',name:'Poolish',sub:'30 %, 2 Tage',v:{meth:'poolish',pAnteil:30,pH:16,h:68,s:2.8,sh:20,sl:'kuehl',kh:4,kl:'raum',oilOn:false,sugarOn:false}},
+  {id:'biga',name:'Biga',sub:'50 %, ohne extra Hefe',v:{meth:'biga',bAnteil:50,h:65,s:2.8,sh:1,sl:'raum',kh:6,kl:'raum',oilOn:false,sugarOn:false}},
+  {id:'sauer',name:'Sauerteig',sub:'24 h kalt',v:{meth:'sauer',h:65,s:2.8,sh:4,sl:'raum',kh:24,kl:'kuehl',oilOn:false,sugarOn:false}},
+  {id:'haus',name:'Haushaltsofen',sub:'mit Öl und Zucker',v:{meth:'direkt',h:62,s:2.5,sh:20,sl:'kuehl',kh:3,kl:'raum',oilOn:true,oil:2,sugarOn:true,sugar:1}}
+];
+const WEIGHTS=[200,230,250,280,300];
+const DEF={mode:'pizzen',n:4,flourIn:1000,w:250,h:65,s:2.8,meth:'direkt',pAnteil:30,pH:16,bAnteil:50,yt:'frisch',rt:21,sh:18,sl:'raum',kh:6,kl:'raum',oilOn:false,oil:2,sugarOn:false,sugar:1,td:23,ft:21,ftManual:false,fric:3,loss:true,flourType:null,protein:null,expert:false,knead:20,form:10,oven:'elektro',ovenModel:'',topT:450,botT:400,stoneT:450,flame:'mittel',houseT:250,base:'stein'};
+const K_ST='pizzateig-rechner-v2',K_REC='pizzateig-rezepte',K_GARE='pizzateig-gare';
+const load=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k)||'null');return v??d}catch(e){return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
+let st={...DEF,...load(K_ST,{})};
+if(st.oven==='effeuno')st.oven='elektro';
+
+const $=id=>document.getElementById(id);
+const nf=(x,d=0)=>x.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});
+const g=x=>x<10?nf(x,2):x<100?nf(x,1):nf(x);
+const pct=x=>nf(x,x<0.1?3:x<1?2:1);
+const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- Berechnung ---------- */
+function teqMain(s=st){
+  const rT=rate(s.rt);
+  const stock=s.sh*(s.sl==='kuehl'?FRIDGE:rT);
+  let stueck;
+  if(s.kl==='kuehl'&&s.kh>=3)stueck=(s.kh-2)*FRIDGE+2*rT; else stueck=s.kh*(s.kl==='kuehl'?FRIDGE:rT);
+  return stock+stueck;
+}
+function calc(s=st){
+  const rT=rate(s.rt),teq=teqMain(s),dry=s.yt==='trocken',div=dry?3:1;
+  const model=yeastFor(teq);
+  let pre=null,mainY=model,warn=[];
+  if(s.meth==='poolish'){
+    let share=s.pAnteil/100;if(share>s.h/100){share=s.h/100;warn.push(`Poolish-Anteil auf ${s.h} % begrenzt: Mehr Poolish geht nicht, weil sein Wasser sonst schon über deiner Hydration liegt.`)}
+    pre={kind:'poolish',share,hyd:1,yp:Math.min(3,yeastFor(s.pH*rT)),hours:s.pH};
+    mainY=model*(1-share);
+  }else if(s.meth==='biga'){
+    let share=s.bAnteil/100;const maxS=s.h/44;if(share>maxS){share=maxS;warn.push(`Biga-Anteil auf ${nf(maxS*100)} % begrenzt: Bei ${s.h} % Hydration ist sonst nicht genug Wasser für den Hauptteig übrig.`)}
+    pre={kind:'biga',share,hyd:0.44,yp:1,hours:clamp(16*rate(17)/rate(s.rt),8,30)};
+    mainY=model*Math.max(0,1-2*share);
+  }else if(s.meth==='sauer'){
+    pre={kind:'sauer',lp:clamp(18*(12.1/teq),5,40)};mainY=0;
+  }
+  const add=(s.oilOn?s.oil:0)+(s.sugarOn?s.sugar:0);
+  let yTot=mainY/div;if(pre&&pre.kind!=='sauer')yTot+=pre.share*pre.yp/div;
+  const perFlour=1+(s.h+s.s+add+yTot)/100;
+  const lf=s.loss?1.02:1;
+  let F,total,n=s.n,rest=0;
+  if(s.mode==='mehl'){F=s.flourIn;total=F*perFlour;n=Math.floor(total/(s.w*lf));rest=total-n*s.w*lf}
+  else{total=s.n*s.w*lf;F=total/perFlour}
+  const W=F*s.h/100;
+  const r={teq,model,F,W,total,n,rest,salt:F*s.s/100,oil:s.oilOn?F*s.oil/100:0,sugar:s.sugarOn?F*s.sugar/100:0,warn,pre,div,
+    mainYeast:F*mainY/100/div,mainYp:mainY/div,hours:s.sh+s.kh};
+  if(pre&&pre.kind!=='sauer'){pre.F=F*pre.share;pre.W=pre.F*pre.hyd;pre.Y=pre.F*pre.yp/100/div;r.mF=F-pre.F;r.mW=W-pre.W}
+  else if(pre){pre.L=F*pre.lp/100;r.mF=F-pre.L/2;r.mW=W-pre.L/2}
+  else{r.mF=F;r.mW=W}
+  const ft=s.ftManual?s.ft:s.rt;
+  r.wt=pre&&pre.kind!=='sauer'?3*(s.td-s.fric)-ft-s.rt:2*(s.td-s.fric)-ft;
+  return r;
+}
+
+/* ---------- Mehl-Grenzen ---------- */
+const FNAME=t=>(FLOURS.find(f=>f[0]===t)||['',''])[1];
+const bigaReason=s=>(s.flourType==='vk'||s.flourType==='d630')?'Biga geht nur mit hellem Weizenmehl (Type 405 bis 1050) mit mindestens 12,5 g Eiweiß':'Biga braucht mindestens 12,5 g Eiweiß';
+function checkFlour(s,lim){
+  const v=[];if(!lim)return v;
+  if(s.h>lim.h)v.push(`Hydration ${s.h} %, dein Mehl schafft etwa ${lim.h} %`);
+  if(s.meth==='poolish'&&!lim.pool)v.push('Poolish braucht mindestens 10,5 g Eiweiß');
+  if(s.meth==='biga'&&!lim.biga)v.push(bigaReason(s));
+  const t=teqMain(s);if(t>lim.teq+1e-9)v.push(`Gare zu lang (${nf(t)} von höchstens ${nf(lim.teq)} umgerechneten Stunden)`);
+  return v;
+}
+function enforce(lim){
+  const notes=[];
+  if(st.h>lim.h){st.h=lim.h;notes.push('Hydration')}
+  if((st.meth==='poolish'&&!lim.pool)||(st.meth==='biga'&&!lim.biga)){st.meth='direkt';notes.push('Teigführung')}
+  let ch=false,guard=0;
+  while(teqMain()>lim.teq+1e-9&&guard++<300){if(st.sh>0)st.sh--;else if(st.kh>1)st.kh--;else break;ch=true}
+  if(ch)notes.push('Gare-Zeiten');
+  return notes;
+}
+function maxFor(key,hi,lo,lim){for(let x=hi;x>=lo;x--)if(teqMain({...st,[key]:x})<=lim.teq+1e-9)return x;return lo}
+function flourSummary(lim,rt){
+  const rT=rate(rt),room=lim.teq/rT,fr=(lim.teq-2*rT)/FRIDGE+2;
+  return `Mit diesem Mehl: Hydration bis <b>${lim.h} %</b>, Gare bis etwa <b>${nf(room)} h</b> bei ${rt} °C oder <b>${nf(fr)} h</b> im Kühlschrank (inkl. 2 h draußen). Poolish: ${lim.pool?'ja':'nein'} · Biga: ${lim.biga?'ja':'nein'}.`;
+}
+
+/* ---------- Rechner rendern ---------- */
+function setSeg(){for(const seg of document.querySelectorAll('.seg[data-key]'))for(const b of seg.querySelectorAll('button'))b.setAttribute('aria-pressed',b.dataset.v===st[seg.dataset.key])}
+function render(){
+  if(!st.ftManual)st.ft=st.rt;
+  const lim=limits(st),hard=lim&&!st.expert;
+  const adj=hard?enforce(lim):[];
+  $('h').max=hard?lim.h:80;$('sh').max=hard?maxFor('sh',96,0,lim):96;$('kh').max=hard?maxFor('kh',72,1,lim):72;
+  $('ftChips').innerHTML=FLOURS.map(([v,l])=>`<button class="chip" data-ft="${v}" aria-pressed="${v===st.flourType}">${l}</button>`).join('');
+  if(document.activeElement!==$('protein'))$('protein').value=st.protein!=null?nf(st.protein,1):'';
+  $('expert').checked=st.expert;$('expertBadge').hidden=!st.expert;
+  $('flourCard').classList.toggle('set',!!lim);
+  $('flourSum').innerHTML=lim?flourSummary(lim,st.rt):!st.flourType&&st.protein==null?'':!st.flourType?'<b>Noch die Type auswählen.</b>':st.protein==null?'<b>Noch den Eiweißgehalt eintragen.</b>':'<b>Bitte einen Eiweißwert zwischen 5 und 20 g eintragen.</b>';
+  $('emptyMsg').hidden=!!lim;$('resultBody').hidden=!lim;$('planCard').hidden=!lim;
+  const r=calc();
+  for(const id of ['w','h','s','rt','sh','kh','pAnteil','pH','bAnteil','oil','sugar','td','ft','fric','knead','form','topT','botT','houseT','stoneT'])$(id).value=st[id];
+  $('topTOut').textContent=st.topT+' °C';$('botTOut').textContent=st.botT+' °C';$('houseTOut').textContent=st.houseT+' °C';$('stoneTOut').textContent=st.stoneT+' °C';
+  if(document.activeElement!==$('ovenModel'))$('ovenModel').value=st.ovenModel||'';
+  $('effBox').hidden=st.oven!=='elektro';$('gasBox').hidden=st.oven!=='gas';$('hausBox').hidden=st.oven!=='haus';
+  $('backHint').textContent=st.oven==='elektro'?`${ovenName(st)} (Oberhitze ${st.topT} °C, Unterhitze ${st.botT} °C): Neapolitanisch bei 430 °C und mehr etwa 60–90 Sekunden, bei niedrigeren Temperaturen länger.`:st.oven==='gas'?`${ovenName(st)} mit ${st.stoneT} °C Steintemperatur: bei 430 °C und mehr etwa 60–90 Sekunden. Die Pizza zwischendurch drehen, die Flamme brennt nur auf einer Seite.`:`${ovenName(st)} bei ${st.houseT} °C auf ${BASES[st.base]}: etwa 8–12 Minuten, auf Stahl eher kürzer, auf dem Blech länger.`;
+  $('kneadOut').textContent=st.knead+' min';$('formOut').textContent=st.form+' min';
+  $('nOut').textContent=st.n;$('flourIn').value=st.flourIn;
+  $('wOut').textContent=st.w+' g';$('hOut').textContent=st.h+' %';$('sOut').textContent=nf(st.s,1)+' %';
+  $('rtOut').textContent=st.rt+' °C';$('shOut').textContent=st.sh+' h';$('khOut').textContent=st.kh+' h';
+  $('pAnteilOut').textContent=st.pAnteil+' %';$('pHOut').textContent=st.pH+' h';$('bAnteilOut').textContent=st.bAnteil+' %';
+  $('oilOut').textContent=nf(st.oil,1)+' %';$('sugarOut').textContent=nf(st.sugar,1)+' %';
+  $('tdOut').textContent=st.td+' °C';$('ftOut').textContent=(st.ftManual?st.ft:st.rt)+' °C';$('fricOut').textContent='+'+st.fric+' °C';
+  $('wtOut').textContent=nf(r.wt)+' °C';
+  for(const id of ['oilOn','sugarOn','loss'])$(id).checked=st[id];
+  $('oilBox').hidden=!st.oilOn;$('sugarBox').hidden=!st.sugarOn;
+  $('nBox').hidden=st.mode!=='pizzen';$('flourBox').hidden=st.mode!=='mehl';
+  $('poolBox').hidden=st.meth!=='poolish';$('bigaBox').hidden=st.meth!=='biga';$('ytField').hidden=st.meth==='sauer';
+  $('bigaInfo').textContent=r.pre?.kind==='biga'?`Biga reift bei ${st.rt} °C etwa ${nf(r.pre.hours)} h (klassisch 16–18 h bei 16–18 °C). ${r.mainYeast>0?'Der Hauptteig bekommt noch etwas Hefe dazu.':'Bei diesem Anteil kommt keine weitere Hefe in den Hauptteig.'}`:'';
+  $('sauerInfo').textContent=st.meth==='sauer'?'Mit aktivem Anstellgut (100 % Hydration, 4–6 h nach dem Füttern). Die Menge richtet sich nach Gehzeit und Temperatur.':'';
+  $('khInfo').textContent=st.kl==='kuehl'&&st.kh>=3?'Die letzten 2 h davon liegen die Teiglinge draußen zum Akklimatisieren (steht im Zeitplan).':'';
+  setSeg();
+  const methOff=[];
+  for(const b of document.querySelectorAll('[data-key=meth] button')){
+    const off=hard&&((b.dataset.v==='poolish'&&!lim.pool)||(b.dataset.v==='biga'&&!lim.biga));b.disabled=!!off;
+    if(off)methOff.push(b.dataset.v==='poolish'?'Poolish braucht mindestens 10,5 g Eiweiß.':bigaReason(st)+'.');
+  }
+  $('methInfo').textContent=methOff.join(' ');
+  $('wChips').innerHTML=WEIGHTS.map(w=>`<button class="chip" data-w="${w}" aria-pressed="${w===st.w}">${w} g</button>`).join('');
+  $('presets').innerHTML=PRESETS.map(p=>{const on=Object.entries(p.v).every(([k,v])=>st[k]===v);
+    const blocked=hard&&checkFlour({...st,...p.v},lim).length>0;
+    return `<button class="chip preset${blocked?' blocked':''}" data-p="${p.id}" aria-pressed="${on}"${blocked?' disabled':''}>${p.name}<small>${blocked?'nicht mit deinem Mehl':p.sub}</small></button>`}).join('');
+  if(!lim){save(K_ST,st);renderGareChips(r);return}
+
+  const yName=st.yt==='frisch'?'Frischhefe':'Trockenhefe';
+  if(st.mode==='mehl'){
+    $('totalTitle').textContent=r.n>0?`${r.n} Teiglinge à ${st.w} g`:'Zu wenig für einen Teigling';
+    $('totalSub').textContent=`aus ${nf(r.F)} g Mehl${r.rest>=1?' · Rest '+nf(r.rest)+' g':''}`;
+  }else{
+    $('totalTitle').textContent=`${st.n} × ${st.w} g Teig`;
+    $('totalSub').textContent=`${nf(r.total)} g gesamt · ${nf(r.F)} g Mehl`;
+  }
+  const row=(n,s,v,c='')=>`<div class="row ${c}"><div><b>${n}</b><small>${s}</small></div><div class="num">${v}<i>g</i></div></div>`;
+  let html='';const p=r.pre;
+  if(p&&p.kind==='poolish')html+=`<div class="group">Poolish<small>${p.hours} h bei Raumtemperatur</small></div>`+row('Mehl',nf(p.share*100)+' % vom Gesamtmehl',nf(p.F))+row('Wasser','100 % Hydration',nf(p.W))+row(yName,pct(p.yp/r.div)+' % vom Poolish-Mehl',g(p.Y),'yeast');
+  if(p&&p.kind==='biga')html+=`<div class="group">Biga<small>ca. ${nf(p.hours)} h reifen</small></div>`+row('Mehl',nf(p.share*100)+' % vom Gesamtmehl',nf(p.F))+row('Wasser','44 %, kalt',nf(p.W))+row(yName,pct(1/r.div)+' % vom Biga-Mehl',g(p.Y),'yeast');
+  if(p&&p.kind==='sauer')html+=`<div class="group">Sauerteig</div>`+row('Aktives Anstellgut',pct(p.lp)+' % vom Mehl, 100 % Hydration',nf(p.L),'yeast');
+  if(p)html+=`<div class="group">Hauptteig<small>+ den ganzen ${p.kind==='poolish'?'Poolish':p.kind==='biga'?'Biga':'Sauerteig'}</small></div>`;
+  html+=row('Mehl',p?'Rest vom Mehl':'100 %',nf(r.mF));
+  html+=row('Wasser',`${p?'Rest, ':''}gesamt ${st.h} % · ${nf(r.wt)} °C`,nf(r.mW));
+  html+=row('Salz',nf(st.s,1)+' %',g(r.salt));
+  if(st.meth!=='sauer'&&r.mainYeast>0.004)html+=row(yName,pct(r.mainYp)+' %',g(r.mainYeast),'yeast');
+  if(st.oilOn)html+=row('Olivenöl',nf(st.oil,1)+' %',g(r.oil));
+  if(st.sugarOn)html+=row('Zucker',nf(st.sugar,1)+' %',g(r.sugar));
+  $('rows').innerHTML=html;
+
+  const tiny=st.meth!=='sauer'&&r.mainYeast>0.004&&(st.yt==='frisch'?r.mainYeast<1:r.mainYeast<0.35);
+  $('yeastTip').innerHTML=tiny?`<div class="tip"><strong>Tipp für kleine Hefemengen:</strong> Löse 1 g ${yName} in 100 g von deinem Wasser auf und nimm davon <b>${nf(r.mainYeast*100)} g</b>. Das zählt zum Wasser, du nimmst also insgesamt nicht mehr Wasser.</div>`:'';
+
+  const tot=r.hours+(p&&p.hours?p.hours:0);
+  $('flourHint').textContent=`Dein Mehl: ${FNAME(st.flourType)}, ${nf(st.protein,1)} g Eiweiß. Die Gare nutzt ${nf(Math.min(r.teq,999))} von höchstens ${nf(lim.teq)} umgerechneten Stunden.`;
+
+  const w=[...r.warn];
+  if(adj.length)w.push(`An dein Mehl angepasst: ${adj.join(', ')}. Mit „Ich weiß, was ich tue“ kannst du die Grenzen aufheben.`);
+  if(st.expert)for(const v of checkFlour(st,lim))w.push(`Über der Grenze für dein Mehl: ${v}.`);
+  if(st.sl==='raum'&&st.sh>24)w.push('Mehr als 24 h Stockgare bei Raumtemperatur: Der Teig kann übergären. Für lange Zeiten besser den Kühlschrank wählen.');
+  if(st.kl==='raum'&&st.kh>12)w.push('Mehr als 12 h Stückgare bei Raumtemperatur ist riskant. Die Teiglinge laufen breit und werden sauer.');
+  if(st.meth==='direkt'&&r.model<0.03)w.push('Sehr wenig Hefe: Die Gare wird unberechenbar. Kürzere Zeit oder kühlere Gare wählen.');
+  if(st.meth!=='sauer'&&A*Math.pow(Math.max(r.teq,0.5),-N)>CAP)w.push('Sehr kurze Gare: Mehr Hefe bringt hier nichts mehr, der Teig schmeckt dann nach Hefe. Lieber mehr Zeit einplanen.');
+  if(st.h>=72)w.push('Ab etwa 72 % Hydration wird der Teig klebrig. Kräftiges Mehl, nasse Hände sowie Dehnen und Falten helfen.');
+  const hot=st.oven==='elektro'?Math.max(st.topT,st.botT):st.oven==='gas'?st.stoneT:0;
+  if(st.sugarOn&&hot>=400)w.push(`Zucker bräunt stark. Bei ${hot} °C verbrennt der Rand schnell, dort besser ohne Zucker backen.`);
+  if(st.oven==='haus'&&!st.oilOn&&!st.sugarOn)w.push(`Haushaltsofen mit ${st.houseT} °C: Etwas Öl (ca. 2 %) und Zucker (ca. 1 %) helfen, dass die Pizza in der längeren Backzeit schön bräunt und nicht austrocknet.`);
+  if(st.meth==='sauer')w.push('Sauerteig ist weniger berechenbar als Hefe: Wie schnell er geht, hängt stark von deinem Anstellgut ab. Beim ersten Mal den Teig genau beobachten.');
+  if(r.wt<4)w.push(`Rechnerisch ${nf(r.wt)} °C Wasser: Nimm eiskaltes Wasser aus dem Kühlschrank, der Teig wird trotzdem etwas wärmer als geplant.`);
+  if(r.wt>35)w.push(`Rechnerisch ${nf(r.wt)} °C Wasser: Wärmer als 35 °C schadet der Hefe. Besser den Teig etwas kühler ansetzen.`);
+  $('warns').innerHTML=w.map(t=>`<div class="warn">${t}</div>`).join('');
+
+  renderPlan(r);renderGareChips(r);
+  save(K_ST,st);
+}
+
+function defaultBake(){
+  const d=new Date();d.setHours(19,0,0,0);
+  while(d-Date.now()<(st.sh+st.kh+(st.knead+st.form)/60)*3600e3)d.setDate(d.getDate()+1);
+  const p=n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T19:00`;
+}
+const fmtDay=d=>d.toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'2-digit'});
+const fmtTime=d=>d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+function renderPlan(r){
+  const v=$('bake').value,bake=v?new Date(v):null;
+  if(!bake||isNaN(bake)){$('plan').innerHTML='';return}
+  const at=h=>new Date(bake.getTime()-h*3600e3);
+  const where=l=>l==='kuehl'?'im Kühlschrank':'bei Raumtemperatur';
+  const kn=st.knead/60,fo=st.form/60;
+  const start=st.sh+st.kh+fo+kn,steps=[],p=r.pre;
+  if(p&&p.kind==='poolish')steps.push([at(start+p.hours),'Poolish ansetzen',`${nf(p.F)} g Mehl, ${nf(p.W)} g Wasser und ${g(p.Y)} g Hefe verrühren, abgedeckt ${p.hours} h bei Raumtemperatur reifen lassen.`]);
+  if(p&&p.kind==='biga')steps.push([at(start+p.hours),'Biga ansetzen',`${nf(p.F)} g Mehl, ${nf(p.W)} g kaltes Wasser und ${g(p.Y)} g Hefe nur grob mischen (krümelig), abgedeckt ca. ${nf(p.hours)} h reifen lassen.`]);
+  if(p&&p.kind==='sauer')steps.push([at(start+5),'Anstellgut füttern','Damit es zum Ansetzen des Teigs aktiv ist (Höhepunkt nach etwa 4–6 h).']);
+  steps.push([at(start),'Teig ansetzen',`Wasser mit ${nf(r.wt)} °C. Ansetzen und kneten, bis der Teig glatt ist (eingeplant: ${st.knead} min, fertig um ${fmtTime(at(start-kn))}). ${st.sh>0?'Danach '+st.sh+' h Stockgare '+where(st.sl)+', abgedeckt.':`Gleich danach ${r.n} Kugeln à ${st.w} g formen (eingeplant: ${st.form} min). Ab ${fmtTime(at(st.kh))} ${st.kh} h Stückgare ${where(st.kl)}.`}`]);
+  if(st.sh>0)steps.push([at(st.kh+fo),'Teiglinge formen',`${r.n} Kugeln à ${st.w} g formen (eingeplant: ${st.form} min). Ab ${fmtTime(at(st.kh))} ${st.kh} h Stückgare ${where(st.kl)}.`]);
+  if(st.kl==='kuehl'&&st.kh>=3)steps.push([at(2),'Aus dem Kühlschrank nehmen','Teiglinge abgedeckt auf Raumtemperatur kommen lassen, dann lassen sie sich besser ausziehen.']);
+  steps.push([at(1),'Ofen vorheizen',st.oven==='elektro'?`${ovenName(st)} einschalten: Oberhitze ${st.topT} °C, Unterhitze ${st.botT} °C. 1 h vorheizen, damit der Stein durchgeheizt ist.`:st.oven==='gas'?`${ovenName(st)} anheizen, bis der Stein ${st.stoneT} °C hat (mit Infrarot-Thermometer prüfen). Zum Backen Flamme auf ${FLAMES[st.flame]}.`:`${ovenName(st)} mit ${BASES[st.base]} auf ${st.houseT} °C Ober-/Unterhitze, 1 h vorheizen.`]);
+  steps.push([bake,'Backen','Teigling ausziehen, belegen, ab in den Ofen. Der Back-Timer ist unter „Timer“.','bake']);
+  steps.sort((a,b)=>a[0]-b[0]);
+  $('plan').innerHTML=steps.map(([d,t,txt,c])=>`<li class="${c||''}"><time>${fmtTime(d)}<small>${fmtDay(d)}</small></time><div><b>${t}</b>${d<Date.now()&&c!=='bake'?' <em style="color:var(--red)">(schon vorbei)</em>':''}<br><span style="color:var(--muted)">${txt}</span></div></li>`).join('');
+}
+
+const BASES={stein:'Pizzastein',stahl:'Pizzastahl',blech:'Blech'},FLAMES={voll:'voll',mittel:'mittel',klein:'klein'};
+const ovenName=s=>s.ovenModel?.trim()||{elektro:'Elektro-Pizzaofen',gas:'Gas-Pizzaofen',haus:'Haushaltsofen'}[s.oven]||'Ofen';
+function ovenText(s){
+  if(s.oven==='gas')return `${ovenName(s)}, Stein ${s.stoneT} °C, Flamme ${FLAMES[s.flame]} beim Backen`;
+  if(s.oven==='haus')return `${ovenName(s)}, ${s.houseT} °C Ober-/Unterhitze, auf ${BASES[s.base]}`;
+  return `${ovenName(s)}, Oberhitze ${s.topT} °C, Unterhitze ${s.botT} °C`;
+}
+function recipeText(s=st,name){
+  const r=calc(s),y=s.yt==='frisch'?'Frischhefe':'Trockenhefe',p=r.pre,L=[];
+  L.push(name?`${name}`:'Pizzateig');
+  L.push(s.mode==='mehl'?`${r.n} Teiglinge à ${s.w} g aus ${nf(r.F)} g Mehl`:`${s.n} × ${s.w} g, ${nf(r.F)} g Mehl gesamt`);
+  if(p&&p.kind==='poolish')L.push(`Poolish (${p.hours} h): ${nf(p.F)} g Mehl, ${nf(p.W)} g Wasser, ${g(p.Y)} g ${y}`);
+  if(p&&p.kind==='biga')L.push(`Biga (ca. ${nf(p.hours)} h): ${nf(p.F)} g Mehl, ${nf(p.W)} g Wasser, ${g(p.Y)} g ${y}`);
+  if(p&&p.kind==='sauer')L.push(`Aktives Anstellgut: ${nf(p.L)} g`);
+  L.push(`${p?'Hauptteig: ':''}Mehl ${nf(r.mF)} g, Wasser ${nf(r.mW)} g (${nf(r.wt)} °C), Salz ${g(r.salt)} g${s.meth!=='sauer'&&r.mainYeast>0.004?`, ${y} ${g(r.mainYeast)} g`:''}${s.oilOn?`, Öl ${g(r.oil)} g`:''}${s.sugarOn?`, Zucker ${g(r.sugar)} g`:''}`);
+  if(flourOk(s))L.push(`Mehl: ${FNAME(s.flourType)}, ${nf(s.protein,1)} g Eiweiß/100 g`);
+  L.push(`Hydration ${s.h} %, Salz ${nf(s.s,1)} %, Raum ${s.rt} °C`);
+  L.push('Ofen: '+ovenText(s));
+  L.push(`Stockgare ${s.sh} h ${s.sl==='kuehl'?'Kühlschrank':'Raumtemperatur'}, Stückgare ${s.kh} h ${s.kl==='kuehl'?'Kühlschrank':'Raumtemperatur'}`);
+  return L.join('\n');
+}
+async function copyText(txt,btn,label){
+  const done=m=>{btn.textContent=m;setTimeout(()=>btn.textContent=label,1800)};
+  if(window.TeigApp&&TeigApp.copy){try{TeigApp.copy(txt);done('Kopiert ✓')}catch(e){done('Kopieren nicht möglich')}return}
+  try{await navigator.clipboard.writeText(txt);done('Kopiert ✓')}catch(e){done('Kopieren nicht möglich')}
+}
+
+/* ---------- Teilen per Link ---------- */
+const PUBLIC_URL='https://teigliebe.github.io/rechner/'; // Hier später die eigene Adresse eintragen, z. B. 'https://name.github.io/teigrechner/'
+const SK=['mode','n','flourIn','w','h','s','meth','pAnteil','pH','bAnteil','yt','rt','sh','sl','kh','kl','oilOn','oil','sugarOn','sugar','td','fric','loss','flourType','protein','oven','ovenModel','topT','botT','stoneT','flame','houseT','base','knead','form'];
+const RANGES={n:[1,40],flourIn:[100,20000],w:[150,400],h:[55,80],s:[2,3.5],pAnteil:[10,60],pH:[6,24],bAnteil:[20,100],rt:[16,28],sh:[0,96],kh:[1,72],oil:[.5,5],sugar:[.5,3],td:[20,27],fric:[0,10],protein:[5,20],topT:[200,500],botT:[200,500],stoneT:[300,550],houseT:[180,300],knead:[5,60],form:[5,40]};
+const ENUMS={mode:['pizzen','mehl'],meth:['direkt','poolish','biga','sauer'],yt:['frisch','trocken'],sl:['raum','kuehl'],kl:['raum','kuehl'],oven:['elektro','gas','haus'],flame:['voll','mittel','klein'],base:['stein','stahl','blech'],flourType:FLOURS.map(f=>f[0])};
+function shareBase(){
+  if(PUBLIC_URL)return PUBLIC_URL;
+  const h=location.hostname;
+  return location.protocol==='https:'&&h&&h!=='appassets.androidplatform.net'&&!/claude/.test(h)?location.origin+location.pathname:'';
+}
+function encodeRecipe(s,meta){
+  const o={v:1,m:meta};for(const k of SK)o[k]=s[k];
+  return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function decodeRecipe(code){
+  try{
+    const o=JSON.parse(decodeURIComponent(escape(atob(code.replace(/-/g,'+').replace(/_/g,'/')))));
+    if(!o||o.v!==1)return null;
+    const ns={...DEF};
+    for(const k of SK){
+      const v=o[k];if(v===undefined||v===null)continue;
+      if(ENUMS[k]){if(ENUMS[k].includes(v))ns[k]=v}
+      else if(RANGES[k]){if(typeof v==='number'&&isFinite(v))ns[k]=clamp(v,...RANGES[k])}
+      else if(typeof DEF[k]==='boolean'){ns[k]=v===true}
+      else if(k==='ovenModel'&&typeof v==='string')ns[k]=v.slice(0,40);
+    }
+    const m=o.m||{},str=(x,n)=>typeof x==='string'?x.slice(0,n):'';
+    return {st:ns,meta:{name:str(m.name,60)||'Geteiltes Rezept',by:str(m.by,40),note:str(m.note,280)}};
+  }catch(e){return null}
+}
+let shareSrc=null,shareLink='',incoming=null;
+function openShare(src,name,note){
+  shareSrc=src;$('shName').value=name||defName();$('shNote').value=note||'';
+  try{$('shBy').value=localStorage.getItem('pizzateig-autor')||''}catch(e){}
+  $('shareTitle').textContent=src===st?'Rezept teilen':`„${name}“ teilen`;
+  $('shareForm').hidden=false;updateShareInfo();$('shName').focus();
+}
+function buildShare(){
+  const meta={name:$('shName').value.trim()||defName(),by:$('shBy').value.trim(),note:$('shNote').value.trim()};
+  try{localStorage.setItem('pizzateig-autor',meta.by)}catch(e){}
+  const base=shareBase();shareLink=base?base.split('?')[0].split('#')[0]+'?r='+encodeRecipe(shareSrc||st,meta):'';
+  const head=`🍕 ${meta.name}${meta.by?' von '+meta.by:''} – Pizzarezept aus dem Teigliebe-Rechner`;
+  const text=shareLink?`${head}\n${meta.note?meta.note+'\n':''}${shareLink}`:`${head}\n${meta.note?meta.note+'\n':''}\n${recipeText(shareSrc||st,meta.name)}`;
+  return {meta,text};
+}
+function updateShareInfo(){
+  $('shareInfo').textContent=shareBase()?'Der Link enthält das komplette Rezept. Wer ihn öffnet, kann es direkt in seinen Rechner laden.':'Der Rechner ist noch nicht öffentlich online. Bis dahin wird das Rezept als Text geteilt. Sobald er eine eigene Adresse hat, wird daraus ein Link.';
+  $('shareCopy').textContent=shareBase()?'Link kopieren':'Text kopieren';
+}
+async function doShare(btn){
+  const {meta,text}=buildShare();
+  if(window.TeigApp&&TeigApp.share){try{TeigApp.share(text);return}catch(e){}}
+  if(navigator.share){try{await navigator.share(shareLink?{title:meta.name,text,url:shareLink}:{title:meta.name,text});return}catch(e){if(e&&e.name==='AbortError')return}}
+  copyText(text,btn,'Teilen');
+}
+function showIncoming(){
+  const code=new URLSearchParams(location.search).get('r');
+  incoming=code?decodeRecipe(code):null;
+  if(!incoming){$('sharedCard').hidden=true;return}
+  const {st:ns,meta}=incoming;
+  $('sharedTitle').textContent=meta.name;
+  $('sharedBy').textContent='Geteiltes Rezept'+(meta.by?' von '+meta.by:'');
+  $('sharedNote').textContent=meta.note;$('sharedNote').hidden=!meta.note;
+  $('sharedBody').innerHTML=recipeText(ns).split('\n').slice(1).map(l=>`<p>${esc(l)}</p>`).join('');
+  $('sharedCard').hidden=false;
+}
+function clearIncoming(){incoming=null;$('sharedCard').hidden=true;try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}
+
+/* ---------- Timer ---------- */
+let actx=null;
+function beep(times=3){
+  try{if(!actx)return;let t=actx.currentTime;for(let i=0;i<times;i++){const o=actx.createOscillator(),gn=actx.createGain();o.frequency.value=880;o.connect(gn);gn.connect(actx.destination);gn.gain.setValueAtTime(0.3,t);gn.gain.exponentialRampToValueAtTime(0.001,t+0.35);o.start(t);o.stop(t+0.4);t+=0.5}}catch(e){}
+  try{navigator.vibrate&&navigator.vibrate([300,150,300,150,300])}catch(e){}
+}
+function ensureAudio(){try{if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();actx.resume&&actx.resume()}catch(e){}}
+const BACK=[[60,'60 s'],[90,'90 s'],[120,'2 min'],[240,'4 min'],[480,'8 min'],[720,'12 min']];
+let bt={dur:90,left:90,end:0,run:false,done:false};
+const mmss=s=>{s=Math.max(0,Math.ceil(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return h?`${h}:${String(m).padStart(2,'0')}:${String(x).padStart(2,'0')}`:`${m}:${String(x).padStart(2,'0')}`};
+function renderBack(){
+  $('backChips').innerHTML=BACK.map(([s,l])=>`<button class="chip" data-back="${s}" aria-pressed="${s===bt.dur}">${l}</button>`).join('');
+  const left=bt.run?(bt.end-Date.now())/1000:bt.left;
+  $('backClock').textContent=bt.done?'Fertig!':mmss(left);$('backClock').classList.toggle('done',bt.done);
+  $('backStart').textContent=bt.run?'Pause':'Start';
+}
+let gare=load(K_GARE,null),gareNotified=false;
+function renderGareChips(r){
+  const c=[];if(r.pre&&r.pre.kind==='poolish')c.push(['Poolish',r.pre.hours]);if(r.pre&&r.pre.kind==='biga')c.push(['Biga',Math.round(r.pre.hours)]);
+  if(st.sh>0)c.push(['Stockgare',st.sh]);c.push(['Stückgare',st.kh]);
+  $('gareChips').innerHTML=c.map(([l,h])=>`<button class="chip" data-gare="${h}" data-gl="${l}">${l} ${h} h starten</button>`).join('');
+}
+function renderGare(){
+  if(!gare){$('gareBox').innerHTML='<p class="small" style="margin-top:12px">Kein Gare-Timer aktiv.</p>';return}
+  const left=(gare.end-Date.now())/1000,end=new Date(gare.end),fin=left<=0;
+  $('gareBox').innerHTML=`<h3 style="margin-top:16px">${esc(gare.label)}</h3><div class="clock ${fin?'done':''}" style="font-size:clamp(52px,14vw,88px)">${fin?'Fertig!':mmss(left)}</div><p style="text-align:center;margin:0">fertig am ${fmtDay(end)} um ${fmtTime(end)}</p><div class="actions" style="justify-content:center"><button id="gareStop">${fin?'Schließen':'Abbrechen'}</button></div>`;
+  if(fin&&!gareNotified){gareNotified=true;beep(5)}
+}
+function tick(){
+  if(bt.run&&bt.end<=Date.now()){bt.run=false;bt.left=0;bt.done=true;beep(4)}
+  if(!$('v-timer').hidden){renderBack();renderGare()}
+  else if(gare&&gare.end<=Date.now()&&!gareNotified){gareNotified=true;beep(5)}
+}
+setInterval(tick,500);
+
+/* ---------- Rezepte ---------- */
+let recs=load(K_REC,[]).map(r=>{if(r.st&&r.st.oven==='effeuno')r.st.oven='elektro';return r}),rating=0,confirmDel=null;
+function renderStars(el,val,attr){el.innerHTML=[1,2,3,4,5].map(i=>`<button ${attr}="${i}" class="${i<=val?'on':''}" aria-label="${i} von 5 Sternen">★</button>`).join('')}
+function defName(){const p=PRESETS.find(p=>Object.entries(p.v).every(([k,v])=>st[k]===v));return `${p?p.name:'Mein Teig'} – ${new Date().toLocaleDateString('de-DE')}`}
+function renderRecs(){
+  renderStars($('rStars'),rating,'data-star');
+  if(!recs.length){$('rList').innerHTML='<p class="small">Noch keine Rezepte gespeichert. Stell im Rechner deinen Teig ein und speichere ihn hier.</p>';return}
+  $('rList').innerHTML=recs.map(r=>{const s=r.st,meth={direkt:'Direkt',poolish:'Poolish',biga:'Biga',sauer:'Sauerteig'}[s.meth];
+    return `<div class="recipe"><div class="top"><b style="font-size:18px">${esc(r.name)}</b><span class="small">${new Date(r.date).toLocaleDateString('de-DE')}</span></div>
+    <span class="small">${s.mode==='mehl'?s.flourIn+' g Mehl':s.n+' × '+s.w+' g'}${flourOk(s)?' · '+FNAME(s.flourType)+', '+nf(s.protein,1)+' g Eiweiß':''} · ${s.h} % · ${meth} · ${s.sh} h + ${s.kh} h</span>
+    <div class="stars">${[1,2,3,4,5].map(i=>`<button data-rs="${r.id}" data-v="${i}" class="${i<=r.rating?'on':''}" aria-label="${i} von 5 Sternen">★</button>`).join('')}</div>
+    <textarea data-rn="${r.id}" aria-label="Notizen zu ${esc(r.name)}" placeholder="Notizen">${esc(r.notes||'')}</textarea>
+    <div class="actions" style="margin-top:0"><button class="primary" data-rload="${r.id}">Laden</button><button data-rshare="${r.id}">Teilen</button><button data-rdel="${r.id}">${confirmDel===r.id?'Wirklich löschen?':'Löschen'}</button></div></div>`}).join('');
+}
+function saveRecs(){if(!save(K_REC,recs))$('rMsg').textContent='Speichern ist in diesem Browser nicht möglich.'}
+
+/* ---------- Quellen ---------- */
+function renderRefs(){
+  let rows='',inRange=0,cnt=0;
+  for(const [k,cond,txt,val,rh,T,fh,pro] of REFS){
+    const app=yeastFor(rh*rate(T)+fh*FRIDGE),ratio=app/val;
+    if(!pro){cnt++;if(ratio>=0.5&&ratio<=2)inRange++}
+    const verdict=pro?'<span class="small">Profi, nicht vergleichbar</span>':ratio>=0.67&&ratio<=1.5?'<span class="ok">nah dran</span>':ratio>1?`<span class="off">App ${nf(ratio,1)}× mehr</span>`:`<span class="off">App ${nf(1/ratio,1)}× weniger</span>`;
+    rows+=`<tr><td><a href="${SRC[k][1]}" target="_blank" rel="noopener">${SRC[k][0].split(':')[0]}</a></td><td>${cond}</td><td>${txt}</td><td class="r">${pct(app)} %</td><td>${verdict}</td></tr>`;
+  }
+  $('refTable').innerHTML=`<thead><tr><th>Quelle</th><th>Gare</th><th>Quelle sagt</th><th class="r">App</th><th>Einordnung</th></tr></thead><tbody>${rows}</tbody>`;
+  $('refSummary').textContent=`Bei ${inRange} von ${cnt} Haushaltsrezepten liegt die App höchstens beim Doppelten oder bei der Hälfte des veröffentlichten Werts. Die Quellen selbst unterscheiden sich untereinander teils um das Fünffache, je nach Hefe, Mehl, Kühlschrank und Küche.`;
+  const rT=rate(21);
+  $('flourTable').innerHTML=`<thead><tr><th>Eiweiß (Weizen 405/550)</th><th class="r">Gare max. Raum</th><th class="r">Gare max. Kühlschrank</th><th class="r">Hydration max.</th><th>Poolish</th><th>Biga</th></tr></thead><tbody>${BANDS.map(b=>`<tr><td>${b[6]}</td><td class="r">≈ ${nf(b[2]/rT)} h</td><td class="r">≈ ${nf((b[2]-2*rT)/FRIDGE+2)} h</td><td class="r">${b[3]} %</td><td>${b[4]?'ja':'nein'}</td><td>${b[5]?'ja':'nein'}</td></tr>`).join('')}</tbody>`;
+  $('srcList').innerHTML=Object.values(SRC).map(([t,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${t}</a></li>`).join('');
+}
+
+/* ---------- Navigation ---------- */
+const VIEWS=['rechner','timer','rezepte','quellen'];
+function route(){
+  const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'rechner';
+  for(const x of VIEWS)$('v-'+x).hidden=x!==v;
+  for(const a of document.querySelectorAll('nav a'))a.toggleAttribute('aria-current',a.dataset.view===v),a.dataset.view===v&&a.setAttribute('aria-current','page');
+  if(v==='timer'){renderBack();renderGare()}
+  if(v==='rezepte'){if(!$('rName').value)$('rName').value=defName();renderRecs()}
+  if(v==='quellen')renderRefs();
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+/* ---------- Events ---------- */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  const d=b.dataset;
+  if(d.step){st.n=clamp(st.n+ +d.d,1,40);render()}
+  else if(d.w){st.w=+d.w;render()}
+  else if(d.ft){st.flourType=d.ft;render()}
+  else if(d.p){Object.assign(st,PRESETS.find(p=>p.id===d.p).v);render()}
+  else if(d.v&&b.parentElement.dataset.key){st[b.parentElement.dataset.key]=d.v;render()}
+  else if(b.id==='copy')copyText(recipeText(),b,'Rezept kopieren');
+  else if(b.id==='shareOpen')openShare(st);
+  else if(b.id==='shareGo')doShare(b);
+  else if(b.id==='shareCopy'){const {text}=buildShare();copyText(shareLink||text,b,shareBase()?'Link kopieren':'Text kopieren')}
+  else if(b.id==='shareClose'){$('shareForm').hidden=true;shareSrc=null}
+  else if(d.rshare){const r=recs.find(x=>x.id===d.rshare);location.hash='rechner';setTimeout(()=>{openShare(r.st,r.name,r.notes);$('shareForm').scrollIntoView({block:'center'})},50)}
+  else if(b.id==='sharedLoad'&&incoming){
+    const ns={...incoming.st},lim=limits(ns);
+    if(lim&&checkFlour(ns,lim).length)ns.expert=true;
+    st={...st,...ns};clearIncoming();render();window.scrollTo(0,0);
+  }
+  else if(b.id==='sharedSave'&&incoming){
+    const m=incoming.meta;recs.unshift({id:Date.now().toString(36),name:m.name+(m.by?' (von '+m.by+')':''),notes:m.note,rating:0,date:Date.now(),st:{...DEF,...incoming.st}});
+    saveRecs();b.textContent='Gespeichert ✓';
+  }
+  else if(b.id==='sharedClose')clearIncoming();
+  else if(b.id==='toSave'){$('rName').value=defName();location.hash='rezepte'}
+  else if(d.back){ensureAudio();bt={dur:+d.back,left:+d.back,end:0,run:false,done:false};renderBack()}
+  else if(b.id==='backStart'){ensureAudio();if(bt.run){bt.left=(bt.end-Date.now())/1000;bt.run=false}else{if(bt.done||bt.left<=0){bt.left=bt.dur;bt.done=false}bt.end=Date.now()+bt.left*1000;bt.run=true}renderBack()}
+  else if(b.id==='backReset'){bt={...bt,left:bt.dur,run:false,done:false};renderBack()}
+  else if(d.gare){ensureAudio();gare={label:d.gl,end:Date.now()+ +d.gare*3600e3};gareNotified=false;save(K_GARE,gare);renderGare()}
+  else if(b.id==='gareStop'){gare=null;save(K_GARE,null);renderGare()}
+  else if(d.star){rating=+d.star;renderStars($('rStars'),rating,'data-star')}
+  else if(b.id==='rSave'){
+    const name=$('rName').value.trim()||defName();
+    recs.unshift({id:Date.now().toString(36),name,notes:$('rNotes').value,rating,date:Date.now(),st:{...st}});
+    saveRecs();$('rNotes').value='';rating=0;$('rName').value='';$('rMsg').textContent=`„${name}“ gespeichert.`;renderRecs();
+  }
+  else if(d.rs){const r=recs.find(x=>x.id===d.rs);r.rating=+d.v;saveRecs();renderRecs()}
+  else if(d.rload){const r=recs.find(x=>x.id===d.rload);st={...DEF,...r.st};location.hash='rechner';render()}
+  else if(d.rdel){if(confirmDel===d.rdel){recs=recs.filter(x=>x.id!==d.rdel);confirmDel=null;saveRecs()}else confirmDel=d.rdel;renderRecs()}
+  else if(b.id==='rCopyAll')copyText(recs.map(r=>recipeText(r.st,r.name)+(r.rating?`\nBewertung: ${'★'.repeat(r.rating)}`:'')+(r.notes?`\nNotizen: ${r.notes}`:'')).join('\n\n')||'Keine Rezepte',b,'Alle als Text kopieren');
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.rn){const r=recs.find(x=>x.id===t.dataset.rn);if(r){r.notes=t.value;saveRecs()}return}
+  if(t.type==='range'){st[t.id]=+t.value;if(t.id==='ft')st.ftManual=true;render()}
+  else if(t.id==='ovenModel'){st.ovenModel=t.value.slice(0,40);render()}
+  else if(t.id==='protein'){const v=parseFloat(t.value.replace(',','.'));st.protein=isNaN(v)?null:v;render()}
+  else if(t.id==='flourIn'){const v=+t.value;if(v>=50){st.flourIn=Math.min(v,20000);render()}}
+  else if(t.id==='bake')renderPlan(calc());
+});
+document.addEventListener('change',e=>{const t=e.target;if(t.type==='checkbox'){st[t.id]=t.checked;render()}});
+
+$('bake').value=defaultBake();
+render();route();showIncoming();
+}
+</script>
+</body>
+</html>

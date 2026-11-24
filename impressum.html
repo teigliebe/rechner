@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Impressum – Teigliebe Pizzateig-Rechner</title>
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#faf4eb,#1b1410);--ink:light-dark(#3a2417,#f5ebdf);--muted:light-dark(#7a6453,#bba895);--accent:light-dark(#b85f12,#f0a050)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:680px;margin:0 auto;padding:32px 20px 60px}
+h1{font-size:32px;line-height:1.1;margin:0 0 20px}h2{font-size:20px;margin:28px 0 6px}
+a{color:var(--accent)}p{margin:0 0 10px}.back{display:inline-block;margin-bottom:24px;min-height:44px;line-height:44px}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="index.html">← Zurück zum Rechner</a>
+<h1>Impressum</h1>
+
+<h2>Angaben gemäß § 5 DDG</h2>
+<p>Michele Sistarelli<br>Rötestr. 6<br>75397 Simmozheim<br>Deutschland</p>
+
+<h2>Kontakt</h2>
+<p>E-Mail: <span class="mail" data-u="teigliebe" data-d="gmx.de">teigliebe [at] gmx [Punkt] de</span></p>
+
+<h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+<p>Michele Sistarelli, Anschrift wie oben</p>
+
+<h2>Haftung für Inhalte</h2>
+<p>Die Mengenangaben des Rechners sind Richtwerte nach bestem Wissen und ersetzen keine eigene Beobachtung des Teigs. Für Ergebnisse beim Backen wird keine Gewähr übernommen.</p>
+
+<h2>Haftung für Links</h2>
+<p>Diese Seite enthält Links zu externen Webseiten Dritter, auf deren Inhalte ich keinen Einfluss habe. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich. Werden mir Rechtsverletzungen bekannt, entferne ich derartige Links umgehend.</p>
+</main>
+<script>for(const s of document.querySelectorAll(".mail")){const a=document.createElement("a"),m=s.dataset.u+"@"+s.dataset.d;a.href="mailto:"+m;a.textContent=m;s.replaceWith(a)}</script>
+</body>
+</html>
