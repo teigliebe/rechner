@@ -203,7 +203,9 @@ td.r,th.r{text-align:right;white-space:nowrap}
           <div class="lab"><label for="shNote">Kurze Notiz (optional)</label></div>
           <textarea id="shNote" maxlength="280" placeholder="z. B. Rand super luftig, Unterseite nach 70 s perfekt"></textarea>
         </div>
-        <div class="actions" style="margin-top:4px"><button class="primary" id="shareGo">Teilen</button><button id="shareCopy">Link kopieren</button><button id="shareClose">Schließen</button></div>
+        <div class="actions" style="margin-top:4px"><button class="primary" id="shareGo">Teilen</button><button id="shareShort">Kurzfassung kopieren</button><button id="shareCopy">Link kopieren</button><button id="shareClose">Schließen</button></div>
+        <p class="small" style="margin-top:10px"><b>Kurzfassung</b> (ideal für YouTube-Kommentare):</p>
+        <p id="shareShortText" style="margin:4px 0 0;font-weight:600;overflow-wrap:anywhere"></p>
         <p class="small linkbox" id="shareInfo" style="margin-top:10px"></p>
       </div>
       </div>
@@ -388,6 +390,13 @@ td.r,th.r{text-align:right;white-space:nowrap}
     </div>
     <div class="actions"><button class="primary" id="rSave">Speichern</button></div>
     <p class="small" id="rMsg" style="margin-top:10px"></p>
+  </section>
+  <section class="card">
+    <h2 class="sec">Rezept aus einem Kommentar</h2>
+    <p class="small">Jemand hat die Kurzfassung eines Rezepts gepostet, zum Beispiel unter einem YouTube-Video? Kopiere die Zeile und füge sie hier ein.</p>
+    <textarea id="importText" placeholder="🍕 Mein Teig – Mehl Weizen 550 (12,0 g Eiweiß) · 65 % Wasser · 2,8 % Salz · 18 h Raum + 6 h Raum · bei 21 °C · Direkt · Frischhefe" style="margin-top:8px"></textarea>
+    <div class="actions"><button class="primary" id="importGo">Rezept erkennen</button></div>
+    <p class="small" id="importMsg" style="margin-top:10px"></p>
   </section>
   <section class="card">
     <h2 class="sec">Gespeicherte Rezepte</h2>
@@ -746,7 +755,7 @@ function shareBase(){
   return location.protocol==='https:'&&h&&h!=='appassets.androidplatform.net'&&!/claude/.test(h)?location.origin+location.pathname:'';
 }
 function encodeRecipe(s,meta){
-  const o={v:1,m:meta};for(const k of SK)o[k]=s[k];
+  const o={v:1,m:meta};for(const k of SK)if(s[k]!==DEF[k])o[k]=s[k];
   return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 }
 function decodeRecipe(code){
@@ -776,11 +785,46 @@ function buildShare(){
   const meta={name:$('shName').value.trim()||defName(),by:$('shBy').value.trim(),note:$('shNote').value.trim()};
   try{localStorage.setItem('pizzateig-autor',meta.by)}catch(e){}
   const base=shareBase();shareLink=base?base.split('?')[0].split('#')[0]+'?r='+encodeRecipe(shareSrc||st,meta):'';
-  const head=`🍕 ${meta.name}${meta.by?' von '+meta.by:''} – Pizzarezept aus dem Teigliebe-Rechner`;
-  const text=shareLink?`${head}\n${meta.note?meta.note+'\n':''}${shareLink}`:`${head}\n${meta.note?meta.note+'\n':''}\n${recipeText(shareSrc||st,meta.name)}`;
-  return {meta,text};
+  const short=summaryLine(shareSrc||st,meta.name);
+  const text=`${short}${meta.by?'\nvon '+meta.by:''}${meta.note?'\n'+meta.note:''}${shareLink?'\n\nIm Teigliebe-Rechner öffnen:\n'+shareLink:''}`;
+  return {meta,text,short};
+}
+const LOC={raum:'Raum',kuehl:'Kühlschrank'};
+function summaryLine(s,name){
+  const p=[];
+  if(flourOk(s))p.push(`Mehl ${FNAME(s.flourType)} (${nf(s.protein,1)} g Eiweiß)`);
+  p.push(`${s.h} % Wasser`,`${nf(s.s,1)} % Salz`,`${s.sh} h ${LOC[s.sl]} + ${s.kh} h ${LOC[s.kl]}`,`bei ${s.rt} °C`);
+  p.push(s.meth==='poolish'?`Poolish ${s.pAnteil} % (${s.pH} h)`:s.meth==='biga'?`Biga ${s.bAnteil} %`:s.meth==='sauer'?'Sauerteig':'Direkt');
+  if(s.meth!=='sauer')p.push(s.yt==='trocken'?'Trockenhefe':'Frischhefe');
+  if(s.oilOn)p.push(`${nf(s.oil,1)} % Öl`);if(s.sugarOn)p.push(`${nf(s.sugar,1)} % Zucker`);
+  p.push(s.oven==='gas'?`${ovenName(s)} Stein ${s.stoneT} °C`:s.oven==='haus'?`${ovenName(s)} ${s.houseT} °C ${BASES[s.base]}`:`${ovenName(s)} ${s.topT}/${s.botT} °C`);
+  return `🍕 ${name?name+' – ':''}${p.join(' · ')}`;
+}
+function parseSummary(text){
+  const t=text.replace(/\s+/g,' '),num=x=>parseFloat(x.replace(',','.'));
+  const mF=t.match(/Mehl\s+(Weizen\s*(405|550|812|1050)|Weizenvollkorn|Dinkel\s*630)/i);
+  const mP=t.match(/(\d+(?:[.,]\d+)?)\s*g\s*Eiwei/i),mH=t.match(/(\d+(?:[.,]\d+)?)\s*%\s*Wasser/i);
+  const mG=t.match(/(\d+)\s*h\s*(Raum|Kühlschrank|Kuehlschrank)\s*\+\s*(\d+)\s*h\s*(Raum|Kühlschrank|Kuehlschrank)/i);
+  if(!mF||!mP||!mH||!mG)return null;
+  const ns={...st,expert:st.expert};
+  ns.flourType=mF[2]||(/vollkorn/i.test(mF[1])?'vk':'d630');
+  ns.protein=clamp(num(mP[1]),5,20);ns.h=Math.round(clamp(num(mH[1]),55,80));
+  const loc=x=>/raum/i.test(x)?'raum':'kuehl';
+  ns.sh=clamp(+mG[1],0,96);ns.sl=loc(mG[2]);ns.kh=clamp(+mG[3],1,72);ns.kl=loc(mG[4]);
+  const mS=t.match(/(\d+(?:[.,]\d+)?)\s*%\s*Salz/i);if(mS)ns.s=Math.round(clamp(num(mS[1]),2,3.5)*10)/10;
+  const mT=t.match(/bei\s*(\d+)\s*°\s*C/i);if(mT)ns.rt=clamp(+mT[1],16,28);
+  const mPo=t.match(/Poolish\s*(\d+)\s*%\s*\((\d+)\s*h\)/i),mB=t.match(/Biga\s*(\d+)\s*%/i);
+  if(mPo){ns.meth='poolish';ns.pAnteil=clamp(+mPo[1],10,60);ns.pH=clamp(+mPo[2],6,24)}
+  else if(mB){ns.meth='biga';ns.bAnteil=clamp(+mB[1],20,100)}
+  else if(/Sauerteig/i.test(t))ns.meth='sauer';else ns.meth='direkt';
+  ns.yt=/Trockenhefe/i.test(t)?'trocken':'frisch';
+  const mO=t.match(/(\d+(?:[.,]\d+)?)\s*%\s*Öl/i),mZ=t.match(/(\d+(?:[.,]\d+)?)\s*%\s*Zucker/i);
+  ns.oilOn=!!mO;if(mO)ns.oil=clamp(num(mO[1]),.5,5);ns.sugarOn=!!mZ;if(mZ)ns.sugar=clamp(num(mZ[1]),.5,3);
+  const mN=t.match(/🍕\s*(.+?)\s+–\s+Mehl/);
+  return {st:ns,meta:{name:(mN?mN[1]:'Rezept aus einem Kommentar').slice(0,60),by:'',note:''},fromText:true};
 }
 function updateShareInfo(){
+  try{$('shareShortText').textContent=summaryLine(shareSrc||st,$('shName').value.trim())}catch(e){}
   $('shareInfo').textContent=shareBase()?'Der Link enthält das komplette Rezept. Wer ihn öffnet, kann es direkt in seinen Rechner laden.':'Der Rechner ist noch nicht öffentlich online. Bis dahin wird das Rezept als Text geteilt. Sobald er eine eigene Adresse hat, wird daraus ein Link.';
   $('shareCopy').textContent=shareBase()?'Link kopieren':'Text kopieren';
 }
@@ -793,10 +837,13 @@ async function doShare(btn){
 function showIncoming(){
   const code=new URLSearchParams(location.search).get('r');
   incoming=code?decodeRecipe(code):null;
+  renderIncoming();
+}
+function renderIncoming(){
   if(!incoming){$('sharedCard').hidden=true;return}
   const {st:ns,meta}=incoming;
   $('sharedTitle').textContent=meta.name;
-  $('sharedBy').textContent='Geteiltes Rezept'+(meta.by?' von '+meta.by:'');
+  $('sharedBy').textContent=incoming.fromText?'Aus einem Kommentar übernommen. Anzahl und Gewicht der Teiglinge sind deine eigenen.':'Geteiltes Rezept'+(meta.by?' von '+meta.by:'');
   $('sharedNote').textContent=meta.note;$('sharedNote').hidden=!meta.note;
   $('sharedBody').innerHTML=recipeText(ns).split('\n').slice(1).map(l=>`<p>${esc(l)}</p>`).join('');
   $('sharedCard').hidden=false;
@@ -895,6 +942,12 @@ document.addEventListener('click',e=>{
   else if(b.id==='copy')copyText(recipeText(),b,'Rezept kopieren');
   else if(b.id==='shareOpen')openShare(st);
   else if(b.id==='shareGo')doShare(b);
+  else if(b.id==='shareShort'){const {short}=buildShare();copyText(short,b,'Kurzfassung kopieren')}
+  else if(b.id==='importGo'){
+    const r=parseSummary($('importText').value);
+    if(!r){$('importMsg').textContent='Das konnte ich nicht lesen. Es muss die Kurzfassung aus dem Teigliebe-Rechner sein, mit Mehl, Eiweiß, Wasser und Gare.';}
+    else{incoming=r;$('importMsg').textContent='';$('importText').value='';location.hash='rechner';renderIncoming();setTimeout(()=>window.scrollTo(0,0),60)}
+  }
   else if(b.id==='shareCopy'){const {text}=buildShare();copyText(shareLink||text,b,shareBase()?'Link kopieren':'Text kopieren')}
   else if(b.id==='shareClose'){$('shareForm').hidden=true;shareSrc=null}
   else if(d.rshare){const r=recs.find(x=>x.id===d.rshare);location.hash='rechner';setTimeout(()=>{openShare(r.st,r.name,r.notes);$('shareForm').scrollIntoView({block:'center'})},50)}
@@ -929,6 +982,7 @@ document.addEventListener('input',e=>{
   const t=e.target;
   if(t.dataset.rn){const r=recs.find(x=>x.id===t.dataset.rn);if(r){r.notes=t.value;saveRecs()}return}
   if(t.type==='range'){st[t.id]=+t.value;if(t.id==='ft')st.ftManual=true;render()}
+  else if(t.id==='shName'){updateShareInfo()}
   else if(t.id==='ovenModel'){st.ovenModel=t.value.slice(0,40);render()}
   else if(t.id==='protein'){const v=parseFloat(t.value.replace(',','.'));st.protein=isNaN(v)?null:v;render()}
   else if(t.id==='flourIn'){const v=+t.value;if(v>=50){st.flourIn=Math.min(v,20000);render()}}
