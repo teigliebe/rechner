@@ -98,7 +98,13 @@ footer{text-align:center;padding:10px 16px 30px;color:var(--muted);font-size:14p
 .step{display:flex;align-items:center;gap:10px}
 .step button{width:48px;padding:0;font-size:24px}
 .step output{font:700 32px Poppins,sans-serif;min-width:2.2em;text-align:center}
-input[type=range]{width:100%;height:40px;accent-color:var(--red);margin:0}
+input[type=range]{display:none}
+.stepper{display:grid;grid-template-columns:56px minmax(0,1fr) 56px;align-items:center;gap:12px}
+.stp{width:56px;height:46px;padding:0;border-radius:14px;font-size:26px;line-height:1;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.stp:active{background:var(--dough)}
+.bar{position:relative;height:10px;border-radius:5px;background:var(--line);overflow:hidden;pointer-events:none}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--orange);border-radius:5px}
+.bar b{position:absolute;top:0;bottom:0;right:0;background:repeating-linear-gradient(135deg,transparent 0 4px,var(--muted) 4px 6px);opacity:.45}
 input[type=number],input[type=text],input[type=datetime-local],textarea{font:16px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;min-height:44px;padding:8px 10px;width:100%}
 input[type=number]{max-width:160px}input[type=datetime-local]{max-width:280px}
 textarea{min-height:70px;resize:vertical}
@@ -991,6 +997,53 @@ document.addEventListener('input',e=>{
 document.addEventListener('change',e=>{const t=e.target;if(t.type==='checkbox'){st[t.id]=t.checked;render()}});
 
 $('bake').value=defaultBake();
+/* ---------- −/+ statt Schieberegler (kein versehentliches Verstellen beim Scrollen) ---------- */
+function stepRange(inp,dir){
+  const step=+inp.step||1,min=+inp.min,max=+inp.max,dec=(String(inp.step).split('.')[1]||'').length;
+  const v=clamp(Math.round((+inp.value+dir*step)/step)*step,min,max);
+  if(v===+inp.value)return false;
+  inp.value=v.toFixed(dec);inp.dispatchEvent(new Event('input',{bubbles:true}));return true;
+}
+function enhanceRanges(){
+  for(const inp of document.querySelectorAll('input[type=range]')){
+    if(inp.dataset.enh)continue;inp.dataset.enh='1';inp.dataset.omin=inp.min;inp.dataset.omax=inp.max;
+    const name=(document.querySelector(`label[for="${inp.id}"]`)||{}).textContent||inp.getAttribute('aria-label')||'Wert';
+    const w=document.createElement('div');w.className='stepper';
+    w.innerHTML=`<button type="button" class="stp" data-stp="-1" aria-label="${esc(name)} verringern">−</button><div class="bar" aria-hidden="true"><i></i><b></b></div><button type="button" class="stp" data-stp="1" aria-label="${esc(name)} erhöhen">+</button>`;
+    w.dataset.for=inp.id;inp.after(w);
+  }
+}
+function updateSteppers(){
+  for(const w of document.querySelectorAll('.stepper')){
+    const inp=$(w.dataset.for),omin=+inp.dataset.omin,omax=+inp.dataset.omax,span=omax-omin||1;
+    w.querySelector('i').style.width=((+inp.value-omin)/span*100)+'%';
+    const blocked=(omax-+inp.max)/span*100;w.querySelector('b').style.width=Math.max(0,blocked)+'%';
+    w.querySelector('[data-stp="-1"]').disabled=+inp.value<=+inp.min;
+    w.querySelector('[data-stp="1"]').disabled=+inp.value>=+inp.max;
+  }
+}
+{
+  let timer=null,rep=false,sx=0,sy=0;
+  const stop=()=>{clearTimeout(timer);timer=null};
+  document.addEventListener('pointerdown',e=>{
+    const b=e.target.closest('.stp');if(!b)return;rep=false;stop();sx=e.clientX;sy=e.clientY;
+    const inp=$(b.parentElement.dataset.for),dir=+b.dataset.stp;
+    let delay=180,n=0;
+    const tick=()=>{rep=true;if(!stepRange(inp,dir))return stop();n++;delay=n>8?40:n>3?90:150;timer=setTimeout(tick,delay)};
+    timer=setTimeout(tick,450); // erst nach 0,45 s gedrückt halten geht es schnell weiter
+  });
+  for(const ev of ['pointerup','pointercancel','pointerleave'])document.addEventListener(ev,stop,true);
+  document.addEventListener('pointermove',e=>{if(timer&&Math.hypot(e.clientX-sx,e.clientY-sy)>10)stop()},true);
+  document.addEventListener('scroll',stop,true);
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('.stp');if(!b)return;
+    if(rep){rep=false;return}
+    stepRange($(b.parentElement.dataset.for),+b.dataset.stp);
+  });
+  document.addEventListener('contextmenu',e=>{if(e.target.closest('.stp'))e.preventDefault()});
+}
+enhanceRanges();
+const renderCore=render;render=function(){renderCore();updateSteppers()};
 render();route();showIncoming();
 }
 </script>
